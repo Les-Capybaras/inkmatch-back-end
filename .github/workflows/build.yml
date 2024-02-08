@@ -18,11 +18,12 @@ jobs:
       with:
         node-version: 18
 
-    - name: Change Directory
-      run: cd api
-
     - name: Install Dependencies
-      run: npm install
+      run: |
+        cd api
+        npm install
 
     - name: Run Tests
-      run: npm test
+      run: |
+        cd api
+        npm test
