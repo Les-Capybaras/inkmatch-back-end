@@ -17,7 +17,7 @@ async function testAuthenticate() {
     await sequelize.authenticate()
     console.log('[DATABASE] - Connection has been established successfully.')
   } catch (error) {
-    console.log('[DEBUG] - ', sequelize, user, pwd, db)
+    console.error('[DEBUG] - ', sequelize, user, pwd, db)
     console.error('[DATABASE] - Unable to connect to the database', error)
   }
 }
