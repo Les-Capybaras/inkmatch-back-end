@@ -20,7 +20,7 @@ jobs:
         run: docker compose -f docker-compose.ci.yml up -d --build
 
       - name: Audit Packages
-        run: docker exec inkmatch-back-end-api-1 npm audit
+        run: docker compose -f docker-compose.ci.yml exec -T api npm audit
 
       - name: Run tests
-        run: docker exec inkmatch-back-end-api-1 npm test
+        run: docker compose -f docker-compose.ci.yml exec -T npm test
