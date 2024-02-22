@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: Audit Packages
-        working-directory: api
+        working-directory: ./api
         run: docker exec inkmatch-back-end-api-1 npm audit
 
   tests:
@@ -34,5 +34,5 @@ jobs:
 
     steps:
       - name: Run tests
-        working-directory: api
+        working-directory: ./api
         run: docker exec inkmatch-back-end-api-1 npm test
