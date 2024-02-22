@@ -23,4 +23,4 @@ jobs:
         run: docker compose -f docker-compose.ci.yml exec -T api npm audit
 
       - name: Run tests
-        run: docker compose -f docker-compose.ci.yml exec -T npm test
+        run: docker compose -f docker-compose.ci.yml exec -T api npm test
