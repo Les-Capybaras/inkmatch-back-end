@@ -23,4 +23,6 @@ jobs:
         run: docker exec inkmatch-back-end-api-1 npm audit
 
       - name: Run tests
-        run: docker exec inkmatch-back-end-api-1 npm test
+        run: |
+          docker exec inkmatch-back-end-database-1 mariadb --user root -ChangeMe!
+          docker exec inkmatch-back-end-api-1 npm test
