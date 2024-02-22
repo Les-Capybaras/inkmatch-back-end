@@ -1,0 +1,9 @@
+version: '3'
+services:
+  database:
+    env_file:
+      - api/.env.dist
+
+  api:
+    env_file:
+      - api/.env.dist
