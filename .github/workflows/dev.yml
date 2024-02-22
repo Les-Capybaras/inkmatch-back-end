@@ -24,5 +24,4 @@ jobs:
 
       - name: Run tests
         run: |
-          docker exec inkmatch-back-end-api-1 node index.js
           docker exec inkmatch-back-end-api-1 npm test
