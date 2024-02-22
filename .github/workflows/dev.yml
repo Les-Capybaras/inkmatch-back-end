@@ -19,18 +19,8 @@ jobs:
       - name: Build and start services
         run: docker compose -f docker-compose.ci.yml up -d --build
 
-  qa:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Audit Packages
         run: docker exec inkmatch-back-end-api-1 npm audit
 
-  tests:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Run tests
         run: docker exec inkmatch-back-end-api-1 npm test
