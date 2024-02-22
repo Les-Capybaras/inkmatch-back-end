@@ -17,12 +17,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build and start services
-        run: |
-          docker compose -f docker-compose.ci.yml up -d --build
-          docker ps
+        run: docker compose up -d --build
 
       - name: Audit Packages
-        run: docker compose -f docker-compose.ci.yml exec -T api npm audit
+        run: docker exec -T inkmatch-back-end-api-1 npm audit
 
       - name: Run tests
-        run: docker compose -f docker-compose.ci.yml exec -T api npm test
+        run: docker exec -T inkmatch-back-end-api-1 npm test
