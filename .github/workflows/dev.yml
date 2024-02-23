@@ -22,11 +22,9 @@ jobs:
       - name: Audit Packages
         run: docker exec inkmatch-back-end-api-1 npm audit
 
-      - name: Install MySQL Client
-        run: sudo apt-get update && sudo apt-get install -y mysql-client
-
       - name: Run tests
         run: |
+          docker exec inkmatch-back-end-database-1 sudo apt-get update && sudo apt-get install -y mysql-client
           docker exec inkmatch-back-end-database-1 mysql -u root -pChangeMe! -e "CREATE DATABASE IF NOT EXISTS inkmatch_test;"
           cd /api
           npm run test
