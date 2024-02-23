@@ -24,5 +24,6 @@ jobs:
 
       - name: Run tests
         run: |
+          docker exec inkmatch-back-end-database-1 mysql -u root -pChangeMe! -e "CREATE DATABASE IF NOT EXISTS inkmatch_test;"
           cd /api
           npm run test
