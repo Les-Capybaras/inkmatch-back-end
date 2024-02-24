@@ -34,9 +34,7 @@ jobs:
 
       - name: Build and start services
         working-directory: ./api
-        run: |
-          sudo npm install
-          sudo npm run start
+        run: sudo npm install
 
       - name: Run audit
         working-directory: ./api
