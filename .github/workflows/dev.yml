@@ -9,26 +9,24 @@ on:
       - dev
 
 jobs:
-  database:
-    runs-on: ubuntu-latest
-
-    container:
-      image: mariadb:latest
-      env:
-        MYSQL_ROOT_PASSWORD: ChangeMe!
-        MYSQL_DATABASE: changeme
-        MYSQL_USER: changeme
-        MYSQL_PASSWORD: ChangeMe!
-      options: >-
-        --health-cmd="mysqladmin ping"
-        --health-interval=10s
-        --health-timeout=5s
-        --health-retries=3
-      ports:
-        - 3306:3306
-
   CI:
     runs-on: ubuntu-latest
+
+    services:
+      database:
+        image: mariadb:latest
+        env:
+          MYSQL_ROOT_PASSWORD: ChangeMe!
+          MYSQL_DATABASE: changeme
+          MYSQL_USER: changeme
+          MYSQL_PASSWORD: ChangeMe!
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+        ports:
+          - 3306:3306
 
     steps:
       - name: Checkout Repository
