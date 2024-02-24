@@ -9,6 +9,24 @@ on:
       - dev
 
 jobs:
+  database:
+    runs-on: ubuntu-latest
+
+    container:
+      image: mariadb:latest
+      env:
+        MYSQL_ROOT_PASSWORD: ChangeMe!
+        MYSQL_DATABASE: changeme
+        MYSQL_USER: changeme
+        MYSQL_PASSWORD: ChangeMe!
+      options: >-
+        --health-cmd="mysqladmin ping"
+        --health-interval=10s
+        --health-timeout=5s
+        --health-retries=3
+      ports:
+        - 3306:3306
+
   CI:
     runs-on: ubuntu-latest
 
@@ -16,19 +34,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Build and start services
-        run: docker compose up -d --build
-
-      - name: Audit Packages
-        run: docker exec inkmatch-back-end-api-1 npm audit
-
       - name: Install node
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
 
-      - name: Run tests
+      - name: Build and start services
         working-directory: ./api
         run: |
           sudo npm install
-          sudo npm run test
+          sudo npm run start
+
+      - name: Run audit
+        working-directory: ./api
+        run: sudo npm audit
+
+      - name: Run tests
+        working-directory: ./api
+        run: sudo npm run test:ci
