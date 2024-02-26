@@ -15,26 +15,23 @@ dotenv.config()
 const PORT = 5001
 
 // Models
-require('../src/sync')()
-.then(() => {
+(async () => {
+  try {
+    await require('../src/sync')();
+    console.log('[DATABASE] - Synced database.');
 
-  require('../src/routes')(app);
-  
-  // Swagger
-  require('../src/swagger')(app)
+    // Routes and server setup
+    require('../src/routes')(app);
+    require('../src/swagger')(app);
+    require('../src/routes/user.routes')(app);
+    require('../src/routes/auth.routes')(app);
 
-  // Routes
-  //require("./src/routes")(app);
-  require('../src/routes/user.routes')(app)
-  require('../src/routes/auth.routes')(app)
-
-  // Start server
-  app.listen(PORT, () => {
-    console.log(`[EXPRESS] - Server listening on port ${PORT}`)
-  })
-})
-.catch(error => {
-  console.error(error);
-});
+    app.listen(PORT, () => {
+      console.log(`[EXPRESS] - Server listening on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+})();
 
 module.exports = app
