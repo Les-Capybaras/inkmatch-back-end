@@ -1,5 +1,6 @@
 module.exports = () => {
   const User = require('./models/User')
+  console.log(`[DEBUG] - Start Syncing`)
 
   const syncDatabase = async () => {
     try {
@@ -11,4 +12,6 @@ module.exports = () => {
     }
   }
   syncDatabase()
+
+  console.log(`[DEBUG] - Start Synced`)
 }
