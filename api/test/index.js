@@ -4,21 +4,22 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
+// Express App
+const app = express()
+
+app.use(cors())
+app.use(bodyParser.json())
+
+// Select the env file
+dotenv.config()
 const PORT = 5001
 
-const startApp = async () => {
-  // Express App
-  const app = express()
+// Models
+require('../src/sync')()
+.then(() => {
 
-  app.use(cors())
-  app.use(bodyParser.json())
-
-  // Select the env file
-  dotenv.config()
-
-  // Models
-  await require('../src/sync')()
-
+  require('../src/routes')(app);
+  
   // Swagger
   require('../src/swagger')(app)
 
@@ -27,14 +28,13 @@ const startApp = async () => {
   require('../src/routes/user.routes')(app)
   require('../src/routes/auth.routes')(app)
 
-  return app
-}
-
-const app = startApp()
-
-// Start server
-app.listen(PORT, () => {
-  console.log(`[EXPRESS] - Server listening on port ${PORT}`)
+  // Start server
+  app.listen(PORT, () => {
+    console.log(`[EXPRESS] - Server listening on port ${PORT}`)
+  })
 })
+.catch(error => {
+  console.error(error);
+});
 
 module.exports = app
