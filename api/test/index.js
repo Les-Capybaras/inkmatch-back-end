@@ -26,6 +26,8 @@ const startApp = async () => {
   //require("./src/routes")(app);
   require('../src/routes/user.routes')(app)
   require('../src/routes/auth.routes')(app)
+
+  return app
 }
 
 const app = startApp()
