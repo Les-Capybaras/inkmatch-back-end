@@ -1,4 +1,4 @@
-module.exports = () => {
+module.exports = async () => {
   const User = require('./models/User')
   console.log(`[DEBUG] - Start Syncing`)
 
@@ -11,7 +11,7 @@ module.exports = () => {
       console.error('[DATABASE] - Unable to sync database:', error)
     }
   }
-  syncDatabase()
+  await syncDatabase()
 
   console.log(`[DEBUG] - Start Synced`)
 }
