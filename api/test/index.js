@@ -4,6 +4,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
+const PORT = 5001
+
 const startApp = async () => {
   // Express App
   const app = express()
@@ -13,7 +15,6 @@ const startApp = async () => {
 
   // Select the env file
   dotenv.config()
-  const PORT = 5001
 
   // Models
   await require('../src/sync')()
