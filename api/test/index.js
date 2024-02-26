@@ -15,7 +15,7 @@ dotenv.config()
 const PORT = 5001
 
 // Models
-require('../src/sync')()
+await require('../src/sync')()
 
 // Swagger
 require('../src/swagger')(app)
