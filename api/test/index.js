@@ -12,7 +12,7 @@ app.use(bodyParser.json())
 
 // Select the env file
 dotenv.config()
-const PORT = 5001
+const PORT = 5001;
 
 // Models
 (async () => {
