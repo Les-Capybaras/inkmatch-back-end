@@ -2,6 +2,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 const loader = require('../src/loaders/index');
 const PORT = 5001;
+let serverReady = false;
+
 const app = express()
 
 loader(app)
@@ -15,12 +17,17 @@ loader(app)
         console.log(err);
         return process.exit(1);
       }
-
+      serverReady = true;
       console.log(`Server is running on ${PORT}`);
     });
   }
 );
 
-module.exports = app
-
+exports.serverIsReady = () => new Promise((resolve) => {
+  if (serverReady) {
+    resolve();
+  } else {
+    app.once('listening', () => resolve());
+  }
+});
 
