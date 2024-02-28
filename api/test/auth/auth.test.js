@@ -1,8 +1,8 @@
-const app = require('../index')
-let server; 
+const index = require('../index')
+let app; 
 
 before(done => {
-  server = app.listen(5001, done);
+  app = index.listen(5001, done);
 });
 const supertest = require('supertest')
 
