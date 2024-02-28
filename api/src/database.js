@@ -36,6 +36,6 @@ async function testAuthenticate() {
   }
 }
 
-await testAuthenticate()
+testAuthenticate()
 
 module.exports = sequelize
