@@ -6,20 +6,21 @@ const app = express()
 
 loader(app)
 .then(() => {
-  // Select the env file
-  dotenv.config()
+    // Select the env file
+    dotenv.config()
 
-  // Start server
-  app.listen(PORT, err => {
-    if (err) {
-      console.log(err);
-      return process.exit(1);
-    }
+    // Start server
+    app.listen(PORT, err => {
+      if (err) {
+        console.log(err);
+        return process.exit(1);
+      }
 
-    console.log(`Server is running on ${PORT}`);
-  });
-}
-
+      console.log(`Server is running on ${PORT}`);
+    });
+  }
 );
+
+module.exports = app
 
 
