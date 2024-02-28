@@ -7,7 +7,9 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "NODE_ENV=test mocha --recursive --exit",
-    "test:ci": "NODE_ENV=ci mocha --recursive --exit"
+    "test:ci": "NODE_ENV=ci mocha --recursive --exit",
+    "lint": "eslint . --ext .js,.ts --fix --ignore-path .gitignore",
+    "lint:ci": "eslint . --ext .js,.ts --ignore-path .gitignore --max-warnings=0"
   },
   "keywords": [],
   "author": "Les Capybaras",
