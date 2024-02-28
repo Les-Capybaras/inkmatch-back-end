@@ -1,5 +1,5 @@
-import databaseLoader from './database.js';
-import expressLoader from './express.js';
+const databaseLoader = require('./database.js');
+const expressLoader = require('./express.js');
 
 export default async (app) => {
   await databaseLoader();

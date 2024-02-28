@@ -1,4 +1,4 @@
-import sync from './src/sync'
+const sync = require('./src/sync')
 
 export default async () => {
     await sync()
