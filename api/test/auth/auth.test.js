@@ -1,6 +1,12 @@
 const app = require('../index')
 const supertest = require('supertest')
 
+const waiter = () => {
+  setTimeout(() => {
+    console.log("Delayed for 5 second.");
+  }, "5000");
+}
+
 waiter()
 
 let chai
@@ -75,9 +81,3 @@ describe('POST /api/auth/register', function () {
       })
   })
 })
-
-const waiter = () => {
-  setTimeout(() => {
-    console.log("Delayed for 5 second.");
-  }, "5000");
-}
