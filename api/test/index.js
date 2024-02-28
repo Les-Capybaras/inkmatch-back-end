@@ -1,7 +1,7 @@
 const express = require('express');
 const loader = require('../src/loaders/index');
 
-const PORT = 5001;
+const PORT = 5000;
 
 const app = express()
 
