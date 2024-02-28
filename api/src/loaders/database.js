@@ -6,6 +6,7 @@ module.exports = async () => {
     try {
       await User.sync()
       console.log('[DATABASE] - Synced database.')
+      app.emit("databaseSynced");
     } catch (error) {
       console.error('[DATABASE] - Unable to sync database:', error)
     }
