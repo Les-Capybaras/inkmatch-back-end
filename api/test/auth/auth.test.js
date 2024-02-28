@@ -12,6 +12,8 @@ import('chai').then((Chai) => {
 const request = supertest(app)
 
 describe('POST /api/auth/register', function () {
+  this.timeout(5000);
+
   it('creates a user', function (done) {
     const user = {
       email: 'test@test.com',
@@ -72,4 +74,4 @@ describe('POST /api/auth/register', function () {
         done(err)
       })
   })
-}.timeout(5000))
+})
