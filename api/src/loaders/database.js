@@ -1,6 +1,6 @@
 const User = require('../models/User')
 
-module.exports = async () => {
+module.exports = async (app) => {
   console.log(`[DEBUG] - Start Syncing`)
 
     try {

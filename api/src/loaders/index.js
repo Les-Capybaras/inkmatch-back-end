@@ -3,6 +3,6 @@ const expressLoader = require('./express.js');
 
 module.exports = async (app) => {
   console.log("loader called");
-  await databaseLoader();
+  await databaseLoader(app);
   expressLoader(app);
 }
