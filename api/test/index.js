@@ -23,11 +23,5 @@ loader(app)
   }
 );
 
-exports.serverIsReady = () => new Promise((resolve) => {
-  if (serverReady) {
-    resolve();
-  } else {
-    app.once('listening', () => resolve());
-  }
-});
+module.exports = serverReady
 

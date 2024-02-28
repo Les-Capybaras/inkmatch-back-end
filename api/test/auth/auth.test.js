@@ -74,6 +74,7 @@ describe('POST /api/auth/register', function () {
   })
 
   before(async () => {
-    await app.serverIsReady()
-  })
+    while (!app.serverReady) { // If you use the serverReady flag
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }  })
 })
