@@ -6,10 +6,10 @@ module.exports = (app) => {
     app.use(bodyParser.json())
     
     // Swagger
-    require('../src/swagger')(app)
+    require('../swagger')(app)
     
     // Routes
-    require("../src/routes")(app);
-    require('../src/routes/user.routes')(app)
-    require('../src/routes/auth.routes')(app)
+    require("../routes")(app);
+    require('../routes/user.routes')(app)
+    require('../routes/auth.routes')(app)
 }
