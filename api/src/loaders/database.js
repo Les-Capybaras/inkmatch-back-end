@@ -1,7 +1,9 @@
+const User = require('./models/User')
+
 module.exports = async () => {
   console.log("database called");
-    const User = require('./models/User')
-    console.log(`[DEBUG] - Start Syncing`)
+
+  console.log(`[DEBUG] - Start Syncing`)
 
     try {
       // await sequelize.sync({ force: true, alter: true });
