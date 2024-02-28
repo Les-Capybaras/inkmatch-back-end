@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const loader = require('./src/loaders/index');
+const loader = require('../src/loaders/index');
 
 const app = express()
 
