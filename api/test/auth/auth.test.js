@@ -72,9 +72,4 @@ describe('POST /api/auth/register', function () {
         done(err)
       })
   })
-
-  before(async () => {
-    while (!app.serverReady) { // If you use the serverReady flag
-      await new Promise((resolve) => setTimeout(resolve, 100));
-    }  })
-})
+}.timeout(5000))
