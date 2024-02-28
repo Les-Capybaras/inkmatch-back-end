@@ -1,7 +1,7 @@
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
-export default (app) => {
+module.exports = (app) => {
     app.use(cors())
     app.use(bodyParser.json())
     

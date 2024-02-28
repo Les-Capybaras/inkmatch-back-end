@@ -1,7 +1,7 @@
 const databaseLoader = require('./database.js');
 const expressLoader = require('./express.js');
 
-export default async (app) => {
+module.exports = async (app) => {
   await databaseLoader();
   expressLoader(app);
 }
