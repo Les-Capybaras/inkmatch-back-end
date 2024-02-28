@@ -1,4 +1,4 @@
-const User = require('./models/User')
+const User = require('../models/User')
 
 module.exports = async () => {
   console.log("database called");
@@ -6,10 +6,9 @@ module.exports = async () => {
   console.log(`[DEBUG] - Start Syncing`)
 
     try {
-      // await sequelize.sync({ force: true, alter: true });
       await User.sync()
       console.log('[DATABASE] - Synced database.')
-      app.emit("appStarted");
+      app.emit("databaseSynced");
     } catch (error) {
       console.error('[DATABASE] - Unable to sync database:', error)
     }
