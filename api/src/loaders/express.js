@@ -9,7 +9,6 @@ module.exports = (app) => {
     require('../swagger')(app)
     
     // Routes
-    require("../routes")(app);
     require('../routes/user.routes')(app)
     require('../routes/auth.routes')(app)
 }
