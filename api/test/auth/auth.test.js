@@ -1,9 +1,5 @@
-const index = require('../index')
-let app; 
+const app = require('../index')
 
-before(done => {
-  app = index.listen(5001, done);
-});
 const supertest = require('supertest')
 
 let chai
@@ -15,6 +11,12 @@ import('chai').then((Chai) => {
 })
 
 const request = supertest(app)
+
+before(function (done) {
+  app.on("databaseSynced", function(){
+      done();
+  });
+});
 
 describe('POST /api/auth/register', function () {
   it('creates a user', function (done) {

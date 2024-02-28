@@ -6,6 +6,7 @@ module.exports = async () => {
     // await sequelize.sync({ force: true, alter: true });
     await User.sync()
     console.log('[DATABASE] - Synced database.')
+    app.emit("appStarted");
   } catch (error) {
     console.error('[DATABASE] - Unable to sync database:', error)
   }
