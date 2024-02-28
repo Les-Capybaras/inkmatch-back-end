@@ -7,7 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "NODE_ENV=test mocha --recursive --exit",
-    "test:ci": "NODE_ENV=ci mocha --recursive --exit --timeout 9000"
+    "test:ci": "NODE_ENV=ci mocha --recursive --exit"
   },
   "keywords": [],
   "author": "Les Capybaras",
