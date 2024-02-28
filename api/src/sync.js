@@ -1,4 +1,4 @@
-module.exports = async () => {
+export default async () => {
   const User = require('./models/User')
   console.log(`[DEBUG] - Start Syncing`)
 
