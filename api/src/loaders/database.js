@@ -1,4 +1,5 @@
 module.exports = async () => {
+  console.log("database called");
     const User = require('./models/User')
     console.log(`[DEBUG] - Start Syncing`)
 
