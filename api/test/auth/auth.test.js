@@ -1,6 +1,8 @@
 const app = require('../index')
 const supertest = require('supertest')
 
+waiter()
+
 let chai
 let expect
 
@@ -73,3 +75,9 @@ describe('POST /api/auth/register', function () {
       })
   })
 })
+
+const waiter = () => {
+  setTimeout(() => {
+    console.log("Delayed for 5 second.");
+  }, "5000");
+}
