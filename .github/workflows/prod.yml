@@ -6,28 +6,69 @@ on:
       - main
 
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Run with Docker Compose
-        uses: docker/compose@v1
+      - name: Build and start services
+        run: docker compose up -d --build
+
+  QA:
+    runs-on: ubuntu-latest
+    needs: Build
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install node
+        uses: actions/setup-node@v4
         with:
-          up: true
-          build: true
-          env_file: /api/env.dist
+          node-version: 20.x
 
       - name: Install dependencies
         working-directory: ./api
-        run: npm install
+        run: sudo npm install
+
+      - name: Run audit
+        working-directory: ./api
+        run: sudo npm audit
+
+      - name: Run lint
+        working-directory: ./api
+        run: sudo npm run lint:ci
+
+  Tests:
+    runs-on: ubuntu-latest
+    needs: Build
+
+    services:
+      database:
+        image: mariadb:latest
+        env:
+          MYSQL_ROOT_PASSWORD: ChangeMe!
+          MYSQL_DATABASE: changeme
+          MYSQL_USER: changeme
+          MYSQL_PASSWORD: ChangeMe!
+        ports:
+          - 3306:3306
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Build and start services
+        working-directory: ./api
+        run: sudo npm install
 
       - name: Run tests
         working-directory: ./api
-        run: npm test
-
-      - name: Build
-        working-directory: ./api
-        run: npm run build
+        run: sudo npm run test:ci
