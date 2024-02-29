@@ -1,8 +1,8 @@
-const sequelize = require("../database");
-const { DataTypes } = require("sequelize");
+const sequelize = require('../database')
+const { DataTypes } = require('sequelize')
 
 const User = sequelize.define(
-  "User",
+  'User',
   {
     // Model attributes are defined here
     firstname: {
@@ -36,22 +36,6 @@ const User = sequelize.define(
     // Other model options go here
     freezeTableName: true,
   }
-);
+)
 
-// User.sync({ force: true })
-//   .then(() => {
-//     console.log("Synced user entity.");
-//   })
-//   .catch((err) => {
-//     console.log("Failed to sync user entity: " + err.message);
-//   });
-
-// Car.sync({ force: true })
-//   .then(() => {
-//     console.log("Synced car entity.");
-//   })
-//   .catch((err) => {
-//     console.log("Failed to sync car entity: " + err.message);
-//   });
-
-module.exports = User;
+module.exports = User

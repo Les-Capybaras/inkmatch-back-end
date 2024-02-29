@@ -35,9 +35,13 @@ exports.login = async (req, res) => {
     }
 
     // Create and assign a token
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-      expiresIn: 3600,
-    })
+    const token = jwt.sign(
+      { id: user.id },
+      process.env.JWT_SECRET || 'changeMyToken!',
+      {
+        expiresIn: 3600,
+      }
+    )
 
     res.json({
       token,
@@ -83,13 +87,10 @@ exports.create = async (req, res) => {
 
 // Retrieve all users from the database.
 exports.findAll = (req, res) => {
-  User.findAll()
-    .then((data) => {
-      let users = []
-      data.forEach((user) => {
-        let { password, ...userWithoutPassword } = user.dataValues
-        users.push(userWithoutPassword)
-      })
+  User.findAll({
+    attributes: { exclude: ['password'] },
+  })
+    .then((users) => {
       res.send(users)
     })
     .catch((err) => {
@@ -102,14 +103,15 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.user.id
 
-  User.findByPk(id)
-    .then((data) => {
-      let { password, ...userWithoutPassword } = data.dataValues
-      res.send(userWithoutPassword)
+  User.findByPk(id, {
+    attributes: { exclude: ['password'] },
+  })
+    .then((users) => {
+      res.send(users)
     })
     .catch((err) => {
       res.status(500).send({
-        message: 'Error retrieving User with id=' + id,
+        message: err.message || 'Some error occurred while retrieving users.',
       })
     })
 }
@@ -135,6 +137,7 @@ exports.update = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message: 'Error updating User with id=' + id,
+        error: err,
       })
     })
 }
@@ -160,6 +163,7 @@ exports.delete = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message: 'Could not delete User with id=' + id,
+        error: err,
       })
     })
 }

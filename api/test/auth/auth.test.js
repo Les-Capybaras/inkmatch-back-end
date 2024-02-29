@@ -1,4 +1,5 @@
 const app = require('../index')
+
 const supertest = require('supertest')
 
 let chai
@@ -10,6 +11,12 @@ import('chai').then((Chai) => {
 })
 
 const request = supertest(app)
+
+before(function (done) {
+  app.on('databaseSynced', function () {
+    done()
+  })
+})
 
 describe('POST /api/auth/register', function () {
   it('creates a user', function (done) {
