@@ -13,10 +13,10 @@ import('chai').then((Chai) => {
 const request = supertest(app)
 
 before(function (done) {
-  app.on("databaseSynced", function(){
-      done();
-  });
-});
+  app.on('databaseSynced', function () {
+    done()
+  })
+})
 
 describe('POST /api/auth/register', function () {
   it('creates a user', function (done) {

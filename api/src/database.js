@@ -8,8 +8,9 @@ const db = process.env.MARIADB_DATABASE
 let sequelize
 
 if (process.env.NODE_ENV === 'ci') {
+  // Use Pipeline service
   sequelize = new Sequelize(db, user, pwd, {
-    host: '127.0.0.1', // Docker Service Name
+    host: '127.0.0.1',
     dialect: 'mariadb',
     port: 3306,
     username: 'root',
@@ -20,6 +21,7 @@ if (process.env.NODE_ENV === 'ci') {
   })
 } else {
   sequelize = new Sequelize(db, user, pwd, {
+    // Use Docker service
     host: 'database', // Docker Service Name
     dialect: 'mariadb',
     logging: false, // Remove if SQL logs are wanted

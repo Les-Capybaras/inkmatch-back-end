@@ -40,6 +40,10 @@ jobs:
         working-directory: ./api
         run: sudo npm audit
 
+      - name: Run lint
+        working-directory: ./api
+        run: sudo npm run lint:ci
+
       - name: Run tests
         working-directory: ./api
         run: sudo npm run test:ci
