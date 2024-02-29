@@ -75,3 +75,7 @@ jobs:
       - name: Run tests
         working-directory: ./api
         run: sudo npm run test:ci
+
+      - name: Run functional tests
+        working-directory: ./api
+        run: sudo npm run functional:test:ci

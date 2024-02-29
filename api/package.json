@@ -8,6 +8,8 @@
     "dev": "nodemon index.js",
     "test": "NODE_ENV=test mocha --recursive --exit",
     "test:ci": "NODE_ENV=ci mocha --recursive --exit",
+    "functional:test": "cucumber-js features/**/*.feature --require support/**/*.js --force-exit",
+    "functional:test:ci": "NODE_ENV=ci cucumber-js features/**/*.feature --require support/**/*.js --force-exit",
     "lint": "eslint . --ext .js,.ts --fix --ignore-path .gitignore",
     "lint:ci": "eslint . --ext .js,.ts --ignore-path .gitignore --max-warnings=0"
   },
@@ -29,6 +31,7 @@
     "swagger-ui-express": "^4.6.2"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^10.3.1",
     "chai": "^5.1.0",
     "eslint": "^8.57.0",
     "mocha": "^10.3.0",
