@@ -8,9 +8,7 @@ const app = express()
 
 ;(async () => {
   await loader(app)
-  console.log('loaded')
   await fixture()
-  console.log('fixture')
 
   app.emit('databaseSynced')
 

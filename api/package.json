@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "NODE_ENV=test mocha --recursive --exit --timeout 10000",
+    "test": "NODE_ENV=test mocha --recursive --exit",
     "test:ci": "NODE_ENV=ci mocha --recursive --exit",
     "test:coverage": "nyc npm run test",
     "test:coverage:ci": "nyc npm run test:ci --check-coverage",

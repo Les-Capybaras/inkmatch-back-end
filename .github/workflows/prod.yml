@@ -31,15 +31,15 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./api
-        run: sudo npm install
+        run: npm install
 
       - name: Run audit
         working-directory: ./api
-        run: sudo npm audit
+        run: npm audit
 
       - name: Run lint
         working-directory: ./api
-        run: sudo npm run lint:ci
+        run: npm run lint:ci
 
   Tests:
     runs-on: ubuntu-latest
@@ -67,11 +67,11 @@ jobs:
 
       - name: Build and start services
         working-directory: ./api
-        run: sudo npm install
+        run: npm install
 
       - name: Run tests
         working-directory: ./api
-        run: sudo npm run test:ci
+        run: npm run test:ci
 
       - name: Run code coverage
         working-directory: ./api
