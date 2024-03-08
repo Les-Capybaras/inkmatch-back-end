@@ -7,17 +7,11 @@ exports.isAuth = async (req, res, next) => {
   if (!token) return res.status(401).json({ message: 'Access denied' })
 
   try {
-    console.log(token, process.env.JWT_SECRET || 'changeMyToken!')
     const verified = jwt.verify(
       token,
       process.env.JWT_SECRET || 'changeMyToken!'
     )
-    console.log(
-      token,
-      process.env.JWT_SECRET || 'changeMyToken!',
-      verified,
-      req.user
-    )
+
     req.user = verified
     next()
   } catch (err) {
@@ -32,7 +26,11 @@ exports.isOwner = async (req, res, next) => {
   if (!token) return res.status(401).json({ message: 'Access denied' })
 
   try {
-    const verified = jwt.verify(token, process.env.JWT_SECRET)
+    const verified = jwt.verify(
+      token,
+      process.env.JWT_SECRET || 'changeMyToken!'
+    )
+
     req.user = verified
     if (parseInt(req.user.id) !== parseInt(req.params.id)) {
       return res.status(401).json({ message: 'Access denied' })
