@@ -33,7 +33,7 @@
 
 /**
  * @swagger
- * tags: 
+ * tags:
  *  name: Users
  *  description: User management and login
  * /users:
@@ -60,17 +60,17 @@
  */
 
 module.exports = (app) => {
-  const users = require("../controllers/user.controller.js");
+  const users = require('../controllers/user.controller.js')
 
-  const { isAuth } = require("../middlewares/auth");
+  const { isAuth, isOwner } = require('../middlewares/auth')
 
-  var router = require("express").Router();
+  var router = require('express').Router()
 
-  router.get("/", isAuth, users.findAll);
-  
-  router.put("/:id", isAuth, users.update);
+  router.get('/', isAuth, users.findAll)
 
-  router.delete("/:id", isAuth, users.delete);
+  router.put('/:id', isOwner, users.update)
 
-  app.use("/api/users", router);
-};
+  router.delete('/:id', isOwner, users.delete)
+
+  app.use('/api/users', router)
+}

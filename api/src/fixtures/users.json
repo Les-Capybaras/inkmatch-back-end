@@ -1,0 +1,22 @@
+{
+    "users": [
+        {
+            "email": "mock@example.com",
+            "password": "testtest",
+            "firstname": "mock",
+            "lastname": "example"
+        },
+        {
+            "email": "john@doe.com",
+            "password": "mockmock",
+            "firstname": "john",
+            "lastname": "doe"
+        },
+        {
+            "email": "capy@bara.com",
+            "password": "capybara",
+            "firstname": "capy",
+            "lastname": "bara"
+        }
+    ]
+}

@@ -72,3 +72,7 @@ jobs:
       - name: Run tests
         working-directory: ./api
         run: sudo npm run test:ci
+
+      - name: Run code coverage
+        working-directory: ./api
+        run: npm run test:coverage:ci
