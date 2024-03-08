@@ -48,7 +48,6 @@ describe('Access, modify and delete users', function () {
       .put('/api/users/1')
       .set('Authorization', `Bearer ${token}`)
       .send(payload)
-    console.log(response.body)
     expect(response.status).to.equal(200)
     expect(response.body)
       .to.be.an('object')
