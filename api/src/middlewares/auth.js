@@ -11,6 +11,12 @@ exports.isAuth = async (req, res, next) => {
       token,
       process.env.JWT_SECRET || 'changeMyToken!'
     )
+    console.log(
+      token,
+      process.env.JWT_SECRET || 'changeMyToken!',
+      verified,
+      req.user
+    )
     req.user = verified
     next()
   } catch (err) {
