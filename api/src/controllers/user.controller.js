@@ -117,29 +117,20 @@ exports.findOne = (req, res) => {
 }
 
 // Update a User by the id in the request
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const id = req.params.id
 
-  User.update(req.body, {
+  const dbUser = await User.update(req.body, {
     where: { id: id },
   })
-    .then((num) => {
-      if (num == 1) {
-        res.send({
-          message: 'User was updated successfully.',
-        })
-      } else {
-        res.send({
-          message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`,
-        })
-      }
+
+  if (dbUser == 1) {
+    res.send(req.body)
+  } else {
+    res.send({
+      message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`,
     })
-    .catch((err) => {
-      res.status(500).send({
-        message: 'Error updating User with id=' + id,
-        error: err,
-      })
-    })
+  }
 }
 
 // Delete a User with the specified id in the request
