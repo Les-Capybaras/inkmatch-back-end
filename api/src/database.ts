@@ -1,11 +1,16 @@
-const { Sequelize } = require('sequelize')
+import { Sequelize } from 'sequelize'
 
 // Database connection
 const user = process.env.MARIADB_USER
 const pwd = process.env.MARIADB_PASSWORD
 const db = process.env.MARIADB_DATABASE
 
-let sequelize
+if (!user || !pwd || !db) {
+  console.error('[DATABASE] - Missing environment variables')
+  process.exit(1)
+}
+
+let sequelize: Sequelize
 
 if (process.env.NODE_ENV === 'ci') {
   // Use Pipeline service
@@ -40,4 +45,4 @@ async function testAuthenticate() {
 
 testAuthenticate()
 
-module.exports = sequelize
+export default sequelize

@@ -1,21 +1,12 @@
-const app = require('../index')
-
-const supertest = require('supertest')
-
-let chai
-let expect
-
-import('chai').then((Chai) => {
-  chai = Chai
-  expect = chai.expect
-})
+import app from '../index'
+import supertest from 'supertest'
+import { describe, it, before } from 'mocha'
+import { expect } from 'chai'
 
 const request = supertest(app)
 
-before(function (done) {
-  app.on('databaseSynced', function () {
-    done()
-  })
+before(function () {
+  console.log('Waiting for database to sync');
 })
 
 describe('Implement authent on the API', function () {

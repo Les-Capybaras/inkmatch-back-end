@@ -59,18 +59,18 @@
  *     description: Delete a user from database.
  */
 
-module.exports = (app) => {
-  const users = require('../controllers/user.controller.js')
+import { Application, Router } from 'express'
+import { isOwner } from '../middlewares/auth'
+import { findAll, update, destroy } from '../controllers/user.controller'
 
-  const { isAuth, isOwner } = require('../middlewares/auth')
+export default (app: Application) => {
+  let router: Router = Router()
 
-  var router = require('express').Router()
+  router.get('/', findAll)
 
-  router.get('/', isAuth, users.findAll)
+  router.put('/:id', isOwner, update)
 
-  router.put('/:id', isOwner, users.update)
-
-  router.delete('/:id', isOwner, users.delete)
+  router.delete('/:id', isOwner, destroy)
 
   app.use('/api/users', router)
 }

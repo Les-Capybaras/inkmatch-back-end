@@ -1,14 +1,7 @@
-const app = require('../index')
-
-const supertest = require('supertest')
-
-let chai
-let expect
-
-import('chai').then((Chai) => {
-  chai = Chai
-  expect = chai.expect
-})
+import app from '../index'
+import supertest from 'supertest'
+import { describe, it, beforeEach } from 'mocha'
+import { expect } from 'chai'
 
 let request = supertest(app)
 

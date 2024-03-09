@@ -1,12 +1,15 @@
 module.exports = {
   env: {
     browser: true,
-    commonjs: true,
     es2021: true,
     node: true,
     mocha: true,
   },
-  extends: 'eslint:recommended',
+  extends: [
+    'eslint:recommended',
+    'eslint-config-prettier',
+    'eslint-config-prettier/@typescript-eslint',
+  ],
   overrides: [
     {
       env: {
@@ -20,6 +23,7 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest',
+    sourceType: 'module',
   },
   rules: {},
 }

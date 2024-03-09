@@ -1,21 +1,22 @@
 {
-  "name": "docker-express-mq",
+  "name": "inkmatch-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "NODE_ENV=test mocha --recursive --exit",
+    "start": "tsx index.ts",
+    "dev": "tsx watch index.ts",
+    "test": "NODE_ENV=test mocha -r ts-node/register './test/**/*.ts' -r source-map-support/register --recursive --exit",
     "test:ci": "NODE_ENV=ci mocha --recursive --exit",
     "test:coverage": "nyc npm run test",
     "test:coverage:ci": "nyc npm run test:ci --check-coverage",
-    "functional:test": "cucumber-js features/**/*.feature --require support/**/*.js --force-exit",
-    "functional:test:ci": "NODE_ENV=ci cucumber-js features/**/*.feature --require support/**/*.js --force-exit",
+    "functional:test": "NODE_OPTIONS='--loader ts-node/esm' cucumber-js features/**/*.feature --import support/**/*.ts --force-exit",
+    "functional:test:ci": "NODE_OPTIONS='--loader ts-node/esm' NODE_ENV=ci cucumber-js features/**/*.feature --import support/**/*.ts --force-exit",
     "lint": "eslint . --ext .js,.ts --fix --ignore-path .gitignore",
     "lint:ci": "eslint . --ext .js,.ts --ignore-path .gitignore --max-warnings=0"
   },
   "keywords": [],
+  "type": "module",
   "author": "Les Capybaras",
   "license": "ISC",
   "dependencies": {
@@ -27,17 +28,31 @@
     "jsonwebtoken": "^9.0.0",
     "mariadb": "^3.0.2",
     "moment": "^2.29.4",
-    "nodemon": "^3.0.3",
     "sequelize": "^6.19.2",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.2"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^10.3.1",
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/chai": "^4.3.12",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.25",
+    "@types/supertest": "^6.0.2",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.6",
     "chai": "^5.1.0",
     "eslint": "^8.57.0",
     "mocha": "^10.3.0",
     "nyc": "^15.1.0",
-    "supertest": "^6.3.4"
+    "source-map-support": "^0.5.21",
+    "supertest": "^6.3.4",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.2"
   }
 }

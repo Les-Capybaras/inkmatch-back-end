@@ -1,14 +1,3 @@
-const { checkSchema } = require('express-validator');
-const { createSchema, loginSchema } = require('../schemas/user-schema');
-
-
-/**
- * @swagger
- * components:
- *   schemas:
-
- */
-
 /**
  * @swagger
  * tags:
@@ -93,21 +82,23 @@ const { createSchema, loginSchema } = require('../schemas/user-schema');
  *         description: Server error
  */
 
-module.exports = app => {
-    const users = require("../controllers/user.controller.js");
+import { checkSchema } from 'express-validator';
+import { createSchema, loginSchema } from '../schemas/user-schema';
+import { isAuth } from '../middlewares/auth'
+import { Application, Router } from 'express';
+import { login, create, findOne } from '../controllers/user.controller';
 
-    const { isAuth } = require("../middlewares/auth");
-  
-    var router = require("express").Router();
+export default (app: Application) => {  
+    let router: Router = Router();
 
     // Login
-    router.post("/login", checkSchema(loginSchema), users.login);
+    router.post("/login", checkSchema(loginSchema), login);
 
     // Create a new User
-    router.post("/register", checkSchema(createSchema), users.create);
+    router.post("/register", checkSchema(createSchema), create);
 
     // Retrieve a user
-    router.get('/me', isAuth, users.findOne);
+    router.get('/me', isAuth, findOne);
   
     app.use('/api/auth', router);
   };

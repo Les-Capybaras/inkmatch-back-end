@@ -1,11 +1,12 @@
-module.exports = (app) => {
-  const swaggerJsdoc = require("swagger-jsdoc");
-  const swaggerUi = require("swagger-ui-express");
+import { Application } from "express";
+import swaggerJsDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
+export default (app: Application) => {
   const swaggerDefinition = {
     openapi: "3.0.0",
     info: {
-      title: "Express API for JSONPlaceholder",
+      title: "Inkmatch API",
       version: "1.0.0",
       license: {
         name: 'Licensed Under MIT',
@@ -22,10 +23,10 @@ module.exports = (app) => {
 
   const options = {
     swaggerDefinition,
-    apis: ['./src/routes/**.js'],
+    apis: ['./src/routes/**.ts'],
   };
 
-  const specs = swaggerJsdoc(options);
+  const specs = swaggerJsDoc(options);
 
   app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(specs));
 };

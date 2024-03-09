@@ -1,16 +1,12 @@
-const User = require('../models/User')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const { validationResult } = require('express-validator')
-
-async function hashPassword(password) {
-  const salt = await bcrypt.genSalt(10)
-  const encryptedPassword = await bcrypt.hash(password, salt)
-  return encryptedPassword
-}
+import User from '../models/User'
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
+import { validationResult } from 'express-validator'
+import { hashPassword } from '../utils/auth'
+import { Request, Response } from 'express' 
 
 // Login
-exports.login = async (req, res) => {
+export const login = async (req: Request, res: Response) => {
   // Check for validation errors
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -21,7 +17,7 @@ exports.login = async (req, res) => {
 
   try {
     // Check for existing user
-    const user = await User.findOne({ where: { email: email } })
+    const user: any = await User.findOne({ where: { email: email } })
 
     if (!user) {
       return res.status(400).json({ msg: 'User Does not exist' })
@@ -46,19 +42,20 @@ exports.login = async (req, res) => {
     res.json({
       token,
       user: {
-        id: user.id,
-        userName: user.userName,
         email: user.email,
       },
     })
-  } catch (err) {
+  } catch (err: any) {
     console.error(err.message)
-    res.status(500).send('Server Error')
+    res.status(500).send({
+      message: 'Some error occurred while logging in.',
+      error: err,
+    })
   }
 }
 
 // Create and Save a new User
-exports.create = async (req, res) => {
+export const create = async (req: Request, res: Response) => {
   // Check for validation errors
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -86,30 +83,30 @@ exports.create = async (req, res) => {
 }
 
 // Retrieve all users from the database.
-exports.findAll = (req, res) => {
+export const findAll = (req: Request, res: Response) => {
   User.findAll({
     attributes: { exclude: ['password'] },
   })
     .then((users) => {
       res.send(users)
     })
-    .catch((err) => {
+    .catch((err: Error) => {
       res.status(500).send({
         message: err.message || 'Some error occurred while retrieving users.',
       })
     })
 }
 
-exports.findOne = (req, res) => {
+export const findOne = (req: any, res: Response) => {
   const id = req.user.id
 
   User.findByPk(id, {
     attributes: { exclude: ['password'] },
   })
-    .then((users) => {
-      res.send(users)
+    .then((user) => {
+      res.send(user)
     })
-    .catch((err) => {
+    .catch((err: Error) => {
       res.status(500).send({
         message: err.message || 'Some error occurred while retrieving users.',
       })
@@ -117,10 +114,10 @@ exports.findOne = (req, res) => {
 }
 
 // Update a User by the id in the request
-exports.update = async (req, res) => {
+export const update = async (req: Request, res: Response) => {
   const id = req.params.id
 
-  const dbUser = await User.update(req.body, {
+  const [dbUser] = await User.update(req.body, {
     where: { id: id },
   })
 
@@ -134,27 +131,20 @@ exports.update = async (req, res) => {
 }
 
 // Delete a User with the specified id in the request
-exports.delete = (req, res) => {
+export const destroy = async (req: Request, res: Response) => {
   const id = req.params.id
 
-  User.destroy({
+  const deleted = await User.destroy({
     where: { id: id },
   })
-    .then((num) => {
-      if (num == 1) {
-        res.send({
-          message: 'User was deleted successfully!',
-        })
-      } else {
-        res.send({
-          message: `Cannot delete User with id=${id}. Maybe User was not found!`,
-        })
-      }
+
+  if (deleted == 1) {
+    res.send({
+      message: 'User was deleted successfully!',
     })
-    .catch((err) => {
-      res.status(500).send({
-        message: 'Could not delete User with id=' + id,
-        error: err,
-      })
+  } else {
+    res.send({
+      message: `Cannot delete User with id=${id}. Maybe User was not found!`,
     })
+  }
 }

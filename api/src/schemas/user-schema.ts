@@ -1,4 +1,6 @@
-const createSchema = {
+import { Schema } from "express-validator"
+
+export const createSchema: Schema = {
   firstname: {
     notEmpty: true,
     errorMessage: 'firstname is required',
@@ -15,7 +17,7 @@ const createSchema = {
     notEmpty: true,
     errorMessage: 'Password is required',
     custom: {
-      options: (value, { req }) => {
+      options: (value: string, { req }: any) => {
         if (value !== req.body.password2) {
           throw new Error('Passwords must match')
         }
@@ -29,7 +31,7 @@ const createSchema = {
   },
 }
 
-const loginSchema = {
+export const loginSchema: Schema = {
   email: {
     notEmpty: true,
     errorMessage: 'Email is required',
@@ -38,9 +40,4 @@ const loginSchema = {
     notEmpty: true,
     errorMessage: 'Password is required',
   },
-}
-
-module.exports = {
-  createSchema,
-  loginSchema,
 }

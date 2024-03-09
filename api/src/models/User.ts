@@ -1,5 +1,5 @@
-const sequelize = require('../database')
-const { DataTypes } = require('sequelize')
+import sequelize from '../database'
+import { DataTypes } from 'sequelize'
 
 const User = sequelize.define(
   'User',
@@ -33,9 +33,8 @@ const User = sequelize.define(
     },
   },
   {
-    // Other model options go here
     freezeTableName: true,
   }
 )
 
-module.exports = User
+export default User

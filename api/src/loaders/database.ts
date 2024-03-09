@@ -1,6 +1,6 @@
-const User = require('../models/User')
+import User from '../models/User'
 
-module.exports = async () => {
+export default async () => {
   try {
     await User.sync()
     console.log('[DATABASE] - Synced database.')

@@ -1,6 +1,7 @@
-const jwt = require('jsonwebtoken')
+import jwt from 'jsonwebtoken'
+import { Response, NextFunction } from 'express' 
 
-exports.isAuth = async (req, res, next) => {
+export const isAuth = async (req: any, res: Response, next: NextFunction) => {
   const authorizationHeader = req.header('Authorization')
 
   const token = authorizationHeader && authorizationHeader.split(' ')[1]
@@ -11,7 +12,7 @@ exports.isAuth = async (req, res, next) => {
       token,
       process.env.JWT_SECRET || 'changeMyToken!'
     )
-
+    
     req.user = verified
     next()
   } catch (err) {
@@ -19,7 +20,7 @@ exports.isAuth = async (req, res, next) => {
   }
 }
 
-exports.isOwner = async (req, res, next) => {
+export const isOwner = async (req: any, res: Response, next: NextFunction) => {
   const authorizationHeader = req.header('Authorization')
 
   const token = authorizationHeader && authorizationHeader.split(' ')[1]

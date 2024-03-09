@@ -1,5 +1,5 @@
-const assert = require('assert')
-const { When, Then } = require('@cucumber/cucumber')
+import assert from 'assert'
+import { When, Then } from '@cucumber/cucumber'
 
 When('the greeter says hello', function () {
   this.whatIHeard = 'hello'

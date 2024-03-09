@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+
+    /* Language and Environment */
+    "target": "es2016",
+
+    /* Modules */
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": "dist",
+    "resolveJsonModule": true,
+  },
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Recommended",
+  "include": ["./src/**/*.ts", "./test/**/*.ts"],
+  "exclude": ["node_modules"]
+}
