@@ -4,10 +4,10 @@ import { describe, it, beforeEach } from 'mocha'
 import { expect } from 'chai'
 import fixture from '../../src/loaders/fixtures'
 
-let request = supertest(app)
+const request = supertest(app)
 
 let token = ''
-let id: Number| null = null
+let id: number| null = null
 
 describe('Access, modify and delete users', function () {
   before(async () => {

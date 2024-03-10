@@ -64,7 +64,7 @@ import { isOwner } from '../middlewares/auth'
 import { findAll, update, destroy } from '../controllers/user.controller'
 
 export default (app: Application) => {
-  let router: Router = Router()
+  const router: Router = Router()
 
   router.get('/', findAll)
 

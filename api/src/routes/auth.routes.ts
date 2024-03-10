@@ -89,7 +89,7 @@ import { Application, Router } from 'express';
 import { login, create, findOne } from '../controllers/user.controller';
 
 export default (app: Application) => {  
-    let router: Router = Router();
+    const router: Router = Router();
 
     // Login
     router.post("/login", checkSchema(loginSchema), login);

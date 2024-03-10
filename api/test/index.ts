@@ -1,6 +1,5 @@
 import express from 'express'
 import loader from '../src/loaders/index'
-import fixture from '../src/loaders/fixtures'
 
 const PORT = 7000
 

@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 import assert from 'assert'
 import { Given, Then } from '@cucumber/cucumber'
-import request from 'supertest'
+//import request from 'supertest'
 //import app from '../test/index'
 
 Given('I am logged in as a user', async () => {
-  const payload = {
-    email: 'user@regular.com',
-    password: 'regularUser',
-  }
+  //const payload = {
+  //  email: 'user@regular.com',
+  //  password: 'regularUser',
+  //}
 
   //const response = await request(app).post('/api/auth/login').send(payload)
   assert.equal(

@@ -26,7 +26,7 @@
     "reporter": [
       "text"
     ],
-    "all": true  
+    "all": true
   },
   "keywords": [],
   "type": "module",
@@ -58,6 +58,8 @@
     "@types/supertest": "^6.0.2",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.6",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
     "chai": "^5.1.0",
     "eslint": "^8.57.0",
     "mocha": "^10.3.0",
