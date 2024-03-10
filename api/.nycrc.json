@@ -1,5 +1,6 @@
 {
     "all": true,
+    "cache": false,
     "check-coverage": true,
     "extends": "@istanbuljs/nyc-config-typescript",
     "include": [

@@ -15,6 +15,9 @@
     "skipLibCheck": true,
     "outDir": "dist",
     "resolveJsonModule": true,
+
+    /* Source Maps */
+    "sourceMap": true,
   },
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Recommended",

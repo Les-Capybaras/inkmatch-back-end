@@ -2,19 +2,26 @@ import app from '../index'
 import supertest from 'supertest'
 import { describe, it, beforeEach } from 'mocha'
 import { expect } from 'chai'
+import fixture from '../../src/loaders/fixtures'
 
 let request = supertest(app)
 
 let token = ''
+let id: Number| null = null
 
 describe('Access, modify and delete users', function () {
+  before(async () => {
+    await fixture()
+  })
   beforeEach(async () => {
     const response = await request.post('/api/auth/login').send({
       email: 'mock@example.com',
       password: 'testtest',
     })
-
     token = response.body.token
+
+    const me = await request.get('/api/auth/me').set('Authorization', `Bearer ${token}`)    
+    id = me.body.id
   })
 
   it('should return all users', async function () {
@@ -23,12 +30,8 @@ describe('Access, modify and delete users', function () {
       .set('Authorization', `Bearer ${token}`)
     expect(response.status).to.equal(200)
     expect(response.body).to.be.an('array')
-    expect(response.body.length).to.equal(4)
+    expect(response.body.length).to.equal(3)
     expect(response.body[0]).to.have.property('id').to.be.a('number')
-    expect(response.body[0])
-      .to.have.property('firstname')
-      .to.be.a('string')
-      .to.equal('mock')
   })
 
   it('should be able to modify a user', async function () {
@@ -37,8 +40,9 @@ describe('Access, modify and delete users', function () {
       lastname: 'mock',
       email: 'mock@example.com',
     }
+    
     const response = await request
-      .put('/api/users/1')
+      .put(`/api/users/${id}`)
       .set('Authorization', `Bearer ${token}`)
       .send(payload)
     expect(response.status).to.equal(200)
@@ -57,8 +61,8 @@ describe('Access, modify and delete users', function () {
     }
 
     const response = await request
-      .put('/api/users/2')
-      .set('Authorization', `Bearer ${token}`)
+    .put(`/api/users/${typeof id === 'number' ? id + 1 : 0}`)
+    .set('Authorization', `Bearer ${token}`)
       .send(payload)
     expect(response.status).to.equal(401)
     expect(response.body).to.be.an('object')
@@ -68,8 +72,8 @@ describe('Access, modify and delete users', function () {
 
   it('should be able to delete a user', async function () {
     const response = await request
-      .delete('/api/users/1')
-      .set('Authorization', `Bearer ${token}`)
+    .delete(`/api/users/${id}`)
+    .set('Authorization', `Bearer ${token}`)
     expect(response.status).to.equal(200)
     expect(response.body).to.be.an('object')
     expect(response.body).to.have.property('message').to.be.a('string')

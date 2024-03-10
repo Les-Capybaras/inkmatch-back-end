@@ -15,7 +15,7 @@ export const isAuth = async (req: any, res: Response, next: NextFunction) => {
     
     req.user = verified
     next()
-  } catch (err) {
+  } catch (err) {    
     res.status(400).json({ message: 'Invalid token' })
   }
 }

@@ -8,7 +8,6 @@ const app = express()
 
 ;(async () => {
   await loader(app)
-  await fixture()
 
   app.emit('databaseSynced')
 
