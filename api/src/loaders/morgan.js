@@ -1,4 +1,5 @@
 const winston = require('winston');
+const morgan = require('morgan');
 require('winston-daily-rotate-file');
 
 const { combine, timestamp, colorize, json } = winston.format;
@@ -27,7 +28,7 @@ const morganMiddleware = morgan(
     {
       stream: {
         // Configure Morgan to use our custom logger with the http severity
-        write: (message) => logger.http(message.trim()),
+        write: (message) => httpLogger.http(message.trim()),
       },
     }
   );
