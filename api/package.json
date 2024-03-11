@@ -7,7 +7,7 @@
     "start": "tsx index.ts",
     "dev": "tsx watch index.ts",
     "test": "NODE_ENV=test mocha -r ts-node/register './test/**/*.ts' -r source-map-support/register --recursive --exit",
-    "test:ci": "NODE_ENV=ci mocha -r ts-node/register './test/**/*.ts' -r source-map-support/register --recursive --exit",
+    "test:ci": "NODE_ENV=ci mocha -r ts-node/register './test/**/*.ts' --recursive --exit",
     "test:coverage": "nyc npm run test",
     "test:coverage:ci": "nyc npm run test:ci --check-coverage",
     "functional:test": "NODE_OPTIONS='--loader ts-node/esm' cucumber-js features/**/*.feature --import support/**/*.ts --force-exit",
