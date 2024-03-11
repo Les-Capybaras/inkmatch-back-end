@@ -1,15 +1,5 @@
 import { Sequelize } from 'sequelize'
 
-// Database connection
-const user = process.env.MARIADB_USER
-const pwd = process.env.MARIADB_PASSWORD
-const db = process.env.MARIADB_DATABASE
-
-if (!user || !pwd || !db) {
-  console.error('[DATABASE] - Missing environment variables')
-  process.exit(1)
-}
-
 let sequelize: Sequelize
 
 if (process.env.NODE_ENV === 'ci') {
@@ -25,6 +15,16 @@ if (process.env.NODE_ENV === 'ci') {
     logging: false,
   })
 } else {
+  // Database connection
+  const user = process.env.MARIADB_USER
+  const pwd = process.env.MARIADB_PASSWORD
+  const db = process.env.MARIADB_DATABASE
+
+  if (!user || !pwd || !db) {
+    console.error('[DATABASE] - Missing environment variables')
+    process.exit(1)
+  }
+
   sequelize = new Sequelize(db, user, pwd, {
     // Use Docker service
     host: 'database', // Docker Service Name
