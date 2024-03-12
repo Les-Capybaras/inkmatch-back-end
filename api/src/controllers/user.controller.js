@@ -124,7 +124,7 @@ exports.update = async (req, res) => {
     where: { id: id },
   })
 
-  if (dbUser == 1) {
+  if (dbUser === 1) {
     res.send(req.body)
   } else {
     res.send({
