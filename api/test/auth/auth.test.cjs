@@ -1,11 +1,24 @@
-import app from '../index'
-import supertest from 'supertest'
-import { describe, it } from 'mocha'
-import { expect } from 'chai'
+const app = require('../index.cjs')
+
+const supertest = require('supertest')
+
+let chai
+let expect
+
+import('chai').then((Chai) => {
+  chai = Chai
+  expect = chai.expect
+})
 
 const request = supertest(app)
 
 describe('Implement authent on the API', function () {
+  before(function (done) {
+    app.on('databaseSynced', () => {
+      done()
+    })
+  })
+
   it('creates a user', function (done) {
     const user = {
       email: 'test@test.com',
@@ -97,7 +110,6 @@ describe('Implement authent on the API', function () {
     //  expect(res.status).to.equal(401)
     //  expect(res.body).to.have.property('message').to.equal('Access denied')
     //})
-
     // TODO: Implement a protected route to make this test work
   })
 })

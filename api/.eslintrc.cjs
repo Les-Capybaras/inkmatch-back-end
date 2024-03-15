@@ -28,6 +28,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
+  include: ['**/*.ts'],
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
   },

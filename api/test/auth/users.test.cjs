@@ -1,13 +1,18 @@
-import app from '../index'
-import supertest from 'supertest'
-import { describe, it, beforeEach } from 'mocha'
-import { expect } from 'chai'
-import fixture from '../../src/loaders/fixtures'
+const app = require('../index.cjs')
+const supertest = require('supertest')
 
-const request = supertest(app)
+let chai
+let expect
+
+import('chai').then((Chai) => {
+  chai = Chai
+  expect = chai.expect
+})
+
+let request = supertest(app)
 
 let token = ''
-let id: number| null = null
+let id = null
 
 describe('Access, modify and delete users', function () {
   before(async () => {
@@ -20,7 +25,9 @@ describe('Access, modify and delete users', function () {
     })
     token = response.body.token
 
-    const me = await request.get('/api/auth/me').set('Authorization', `Bearer ${token}`)    
+    const me = await request
+      .get('/api/auth/me')
+      .set('Authorization', `Bearer ${token}`)
     id = me.body.id
   })
 
@@ -40,7 +47,7 @@ describe('Access, modify and delete users', function () {
       lastname: 'mock',
       email: 'mock@example.com',
     }
-    
+
     const response = await request
       .put(`/api/users/${id}`)
       .set('Authorization', `Bearer ${token}`)
@@ -61,8 +68,8 @@ describe('Access, modify and delete users', function () {
     }
 
     const response = await request
-    .put(`/api/users/${typeof id === 'number' ? id + 1 : 0}`)
-    .set('Authorization', `Bearer ${token}`)
+      .put(`/api/users/${typeof id === 'number' ? id + 1 : 0}`)
+      .set('Authorization', `Bearer ${token}`)
       .send(payload)
     expect(response.status).to.equal(401)
     expect(response.body).to.be.an('object')
@@ -72,8 +79,8 @@ describe('Access, modify and delete users', function () {
 
   it('should be able to delete a user', async function () {
     const response = await request
-    .delete(`/api/users/${id}`)
-    .set('Authorization', `Bearer ${token}`)
+      .delete(`/api/users/${id}`)
+      .set('Authorization', `Bearer ${token}`)
     expect(response.status).to.equal(200)
     expect(response.body).to.be.an('object')
     expect(response.body).to.have.property('message').to.be.a('string')

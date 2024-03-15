@@ -4,7 +4,7 @@ let sequelize: Sequelize
 
 if (process.env.NODE_ENV === 'ci') {
   // Use Pipeline service
-  sequelize = new Sequelize(db, user, pwd, {
+  sequelize = new Sequelize('changeme', 'root', 'ChangeMe!', {
     host: '127.0.0.1',
     dialect: 'mariadb',
     port: 3306,
