@@ -1,26 +1,28 @@
-const winston = require('winston');
-require('winston-daily-rotate-file');
+const winston = require('winston')
+require('winston-daily-rotate-file')
 
-const { combine, timestamp, printf, colorize, align } = winston.format;
+const { combine, timestamp, printf, colorize, align } = winston.format
 
+const env = process.env.NODE_ENV || 'dev'
 
 const fileRotateTransport = new winston.transports.DailyRotateFile({
-  filename: `${process.env.NODE_ENV}-app-%DATE%.log`,
+  filename: `${env}-app-%DATE%.log`,
   datePattern: 'DD-MM-YYYY',
   maxFiles: '7d',
-});
+  dirname: 'logs',
+})
 
 const logger = winston.createLogger({
   level: 'info',
   format: combine(
     colorize({ all: true }),
     timestamp({
-      format: 'YYYY-MM-DD hh:mm:ss.SSS A',
+      format: 'YYYY-MM-DD hh:mm:ss',
     }),
     align(),
     printf((info) => `[${info.timestamp}] ${info.level}: ${info.message}`)
   ),
-  transports: [ fileRotateTransport ]
-});
+  transports: [fileRotateTransport],
+})
 
-module.export = logger
+module.exports = logger
