@@ -1,5 +1,4 @@
 const app = require('../index')
-
 const supertest = require('supertest')
 
 let chai
@@ -13,6 +12,7 @@ import('chai').then((Chai) => {
 let request = supertest(app)
 
 let token = ''
+let id = null
 
 describe('Access, modify and delete users', function () {
   beforeEach(async () => {
@@ -20,8 +20,12 @@ describe('Access, modify and delete users', function () {
       email: 'mock@example.com',
       password: 'testtest',
     })
-
     token = response.body.token
+
+    const me = await request
+      .get('/api/auth/me')
+      .set('Authorization', `Bearer ${token}`)
+    id = me.body.id
   })
 
   it('should return all users', async function () {
@@ -45,7 +49,7 @@ describe('Access, modify and delete users', function () {
       email: 'mock@example.com',
     }
     const response = await request
-      .put('/api/users/1')
+      .put('/api/users/' + id)
       .set('Authorization', `Bearer ${token}`)
       .send(payload)
     expect(response.status).to.equal(200)
@@ -64,7 +68,7 @@ describe('Access, modify and delete users', function () {
     }
 
     const response = await request
-      .put('/api/users/2')
+      .put('/api/users/' + (id + 1))
       .set('Authorization', `Bearer ${token}`)
       .send(payload)
     expect(response.status).to.equal(401)
@@ -75,7 +79,7 @@ describe('Access, modify and delete users', function () {
 
   it('should be able to delete a user', async function () {
     const response = await request
-      .delete('/api/users/1')
+      .delete('/api/users/' + id)
       .set('Authorization', `Bearer ${token}`)
     expect(response.status).to.equal(200)
     expect(response.body).to.be.an('object')
