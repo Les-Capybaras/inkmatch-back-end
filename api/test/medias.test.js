@@ -16,8 +16,8 @@ let token = ''
 describe('Store a file and download it', function () {
   beforeEach(async () => {
     const response = await request.post('/api/auth/login').send({
-      email: 'mock@example.com',
-      password: 'testtest',
+      email: 'test@test.com',
+      password: 'testtest12',
     })
     token = response.body.token
   })
@@ -26,9 +26,10 @@ describe('Store a file and download it', function () {
     const response = await request
       .post('/api/medias')
       .set('Authorization', `Bearer ${token}`)
-      .attach('file', '/test/assets/mock.pdf')
+      .field('Content-Type', 'multipart/form-data')
+      .attach('file', 'test/assets/mock.jpg')
 
-    expect(response.status).to.equal(200)
+    expect(response.status).to.equal(201)
     expect(response.body)
       .to.be.an('object')
       .to.have.property('id')
