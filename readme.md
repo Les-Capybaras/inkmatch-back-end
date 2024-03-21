@@ -4,7 +4,7 @@
 
 - MariaDB Database
 - A Adminer instance to manage the DB
-- An empty Express Api
+- A Node Express Api
 - Nginx based Web Server
 
 # Installation guide
@@ -51,3 +51,8 @@ localhost:8080
 - [POST] : /api/auth/login _Login with credentials_
 - [POST] : /api/auth/register _Register_
 - [GET] : /api/auth/me _Retreive current user information_
+
+## Medias
+
+- [POST] : /api/medias _Upload a media object_
+- [GET] : /api/medias/{mediaId} _Download a media object_

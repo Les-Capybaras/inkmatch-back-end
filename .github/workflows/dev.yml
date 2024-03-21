@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - dev
-  pull_request:
-    branches:
-      - dev
 
 jobs:
   Build:
@@ -83,3 +80,22 @@ jobs:
       - name: Run code coverage
         working-directory: ./api
         run: npm run test:coverage:ci
+
+  Deploy:
+    runs-on: ubuntu-latest
+    needs: [Build, Tests, QA]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Deploy App
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEV_SSH_HOST }}
+          username: ${{ secrets.DEV_SSH_USER }}
+          key: ${{ secrets.DEV_SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/inkmatch-back-end
+            git pull
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
