@@ -96,6 +96,6 @@ jobs:
           username: ${{ secrets.DEV_SSH_USER }}
           key: ${{ secrets.DEV_SSH_PRIVATE_KEY }}
           script: |
-            cd inkmatch-back-end
+            cd ~/inkmatch-back-end
             git pull
-            docker compose up -d --build
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
