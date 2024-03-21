@@ -34,3 +34,6 @@ lerna-debug.log*
 
 # Coverage
 /coverage
+
+# Uploads
+/uploads
