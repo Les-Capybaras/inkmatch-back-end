@@ -42,7 +42,7 @@ jobs:
       - name: Run lint
         run: npm run lint:ci
 
-      - name: Run security check
+      - name: Run type check
         run: npm run typecheck
 
   Tests:
@@ -70,6 +70,9 @@ jobs:
 
       - name: Build and start services
         run: npm ci
+
+      - name: Copy .env.example
+        run: cp .env.example .env
 
       - name: Run unit tests
         run: npm run test:unit
