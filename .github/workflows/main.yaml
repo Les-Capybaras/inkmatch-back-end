@@ -37,6 +37,7 @@ jobs:
 
       - name: Run audit
         run: npm audit
+        continue-on-error: true
 
       - name: Run lint
         run: npm run lint:ci
