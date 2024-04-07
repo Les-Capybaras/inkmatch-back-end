@@ -98,6 +98,6 @@ jobs:
           key: ${{ secrets.STAGING_SSH_PRIVATE_KEY }}
           script: |
             cd ~/inkmatch-back-end
-            run: cp .env.staging .env
+            cp .env.staging .env
             git pull
             docker compose -f docker-compose.yml up -d --build
