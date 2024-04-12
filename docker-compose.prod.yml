@@ -30,5 +30,15 @@ services:
       - /home/node/app/node_modules
       - /home/node/app/build
 
+  nginx:
+    container_name: nginx
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - adonis
+
 volumes:
   postgres_volume:
