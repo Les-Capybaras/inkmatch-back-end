@@ -41,14 +41,14 @@ ENV HOST=0.0.0.0
 # Copy package.* to the working directory with active user
 COPY --chown=node:node ./package*.json ./
 
-# We run NPM CI to install the exact versions of dependencies
-RUN npm ci --omit=dev
-
 # Copy files to the working directory from the build folder the user
 COPY --chown=node:node --from=build /home/node/app/build .
+
+# We run NPM CI to install the exact versions of dependencies
+RUN npm ci --omit=dev
 
 # Expose port
 EXPOSE $PORT
 
 # Run the command to start the server using "dumb-init"
-CMD [ "dumb-init", "node", "server.js" ]
+CMD [ "dumb-init", "node", "bin/server.js" ]
