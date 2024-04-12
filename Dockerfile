@@ -28,18 +28,12 @@ RUN node ace build
 ################## Final Stage - Production #########################
 
 # In this final stage, we will start running the application
-FROM base AS production
+FROM build AS production
 
 # Here, we include all the required environment variables
 ENV NODE_ENV=production
 ENV PORT=$PORT
 ENV HOST=0.0.0.0
-
-# Copy package.* to the working directory with active user
-COPY --chown=node:node ./package*.json ./
-
-# Copy files to the working directory from the build folder the user
-COPY --chown=node:node --from=build /home/node/app/build .
 
 # Switch to the app build directory
 WORKDIR /home/node/app/build
