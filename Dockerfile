@@ -11,9 +11,6 @@ RUN mkdir -p /home/node/app && chown node:node /home/node/app
 # Set the working directory
 WORKDIR /home/node/app
 
-# Set the User as NODE
-USER node
-
 RUN mkdir tmp
 
 ################### Second Stage - Installing dependencies ###################
