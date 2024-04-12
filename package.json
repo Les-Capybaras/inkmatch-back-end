@@ -1,5 +1,5 @@
 {
-  "name": "adonis-docker-template",
+  "name": "api-inkmatch",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -52,7 +52,6 @@
     "eslint": "^8.56.0",
     "pino-pretty": "^10.3.1",
     "prettier": "^3.2.4",
-    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
@@ -63,7 +62,8 @@
     "@vinejs/vine": "^1.7.1",
     "luxon": "^3.4.4",
     "pg": "^8.11.3",
-    "reflect-metadata": "^0.2.1"
+    "reflect-metadata": "^0.2.1",
+    "ts-node": "^10.9.2"
   },
   "eslintConfig": {
     "extends": "@adonisjs/eslint-config/app"

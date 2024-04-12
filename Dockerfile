@@ -26,7 +26,7 @@ COPY --chown=node:node . .
 ################## Third Stage - Building Stage #####################
 
 FROM dependencies AS build
-RUN node ace build --production
+RUN node ace build
 
 ################## Final Stage - Production #########################
 
@@ -42,7 +42,7 @@ ENV HOST=0.0.0.0
 COPY --chown=node:node ./package*.json ./
 
 # We run NPM CI to install the exact versions of dependencies
-RUN npm ci --production
+RUN npm ci --omit=dev
 
 # Copy files to the working directory from the build folder the user
 COPY --chown=node:node --from=build /home/node/app/build .
