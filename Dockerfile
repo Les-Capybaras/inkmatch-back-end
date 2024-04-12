@@ -41,6 +41,9 @@ COPY --chown=node:node ./package*.json ./
 # Copy files to the working directory from the build folder the user
 COPY --chown=node:node --from=build /home/node/app/build .
 
+# Switch to the app build directory
+WORKDIR /home/node/app/build
+
 # We run NPM CI to install the exact versions of dependencies
 RUN npm ci --omit=dev
 
