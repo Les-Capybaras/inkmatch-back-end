@@ -1,0 +1,15 @@
+---
+- name: Deploy API
+  hosts: all
+  vars:
+    ansistrano_deploy_from: "{{ playbook_dir }}/../"
+    ansistrano_deploy_to: "/app"
+    ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/after-symlink.yml"
+    ansistrano_version_dir: "releases"
+    ansistrano_current_dir: "current"
+    ansistrano_current_via: "symlink"
+    ansistrano_deploy_via: "git"
+    ansistrano_git_branch: "{{ branch }}"
+    ansistrano_keep_releases: 3
+  roles:
+    - { role: ansistrano.deploy }
