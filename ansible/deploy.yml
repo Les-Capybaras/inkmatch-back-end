@@ -8,5 +8,6 @@
     ansistrano_git_repo: "git@github.com:Les-Capybaras/inkmatch-back-end.git"
     ansistrano_git_branch: "staging"
     ansistrano_git_identity_key_path: "/root/.ssh/id_ed25519"
+    ansistrano_git_identity_key_remote_path: "/root/.ssh/id_ed25519.pub"
   roles:
     - { role: ansistrano.deploy }
