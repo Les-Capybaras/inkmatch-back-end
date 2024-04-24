@@ -10,6 +10,7 @@
     ansistrano_current_via: "symlink"
     ansistrano_deploy_via: "git"
     ansistrano_git_branch: "{{ branch }}"
+    ansistrano_git_repo: "git@github.com:Les-Capybaras/inkmatch-back-end.git"
     ansistrano_keep_releases: 3
   roles:
     - { role: ansistrano.deploy }
