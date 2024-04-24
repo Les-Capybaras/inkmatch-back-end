@@ -12,7 +12,7 @@
     ansistrano_git_branch: "{{ branch }}"
     ansistrano_git_repo: "git@github.com:Les-Capybaras/inkmatch-back-end.git"
     ansistrano_keep_releases: 3
-    ansistrano_git_identity_key_path: "~/.ssh/id_ed25519"
+    ansistrano_git_identity_key_path: "/root/.ssh/id_ed25519"
     ansistrano_git_ssh_opts: "-o StrictHostKeyChecking=no"
     ansistrano_allow_anonymous_stats: no
   roles:
