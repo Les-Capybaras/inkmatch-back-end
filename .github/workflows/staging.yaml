@@ -96,6 +96,4 @@ jobs:
           host: ${{ secrets.STAGING_SSH_HOST }}
           username: ${{ secrets.STAGING_SSH_USER }}
           key: ${{ secrets.STAGING_SSH_PRIVATE_KEY }}
-          script: |
-            ansible-galaxy install ansistrano.deploy ansistrano.rollback
-            ansible-playbook -i ~/inkmatch-back-end/ansible/hosts.ini ~/inkmatch-back-end/ansible/deploy.yml --extra-vars "branch=staging env=staging" --limit staging
+          script: ansible-playbook playbook.yml
