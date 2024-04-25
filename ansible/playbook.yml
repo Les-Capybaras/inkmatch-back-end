@@ -1,6 +1,6 @@
 ---
 - name: Update code and run Docker container
-  hosts: localhost
+  hosts: all
   become: true
 
   tasks:
