@@ -13,7 +13,7 @@
 
     - name: Copy .env file
       copy:
-        src: .env.staging
+        src: /root/inkmatch-back-end/.env.staging
         dest: /root/inkmatch-back-end/.env
 
     - name: Create release directory
