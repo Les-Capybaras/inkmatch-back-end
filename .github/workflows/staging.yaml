@@ -96,4 +96,6 @@ jobs:
           host: ${{ secrets.STAGING_SSH_HOST }}
           username: ${{ secrets.STAGING_SSH_USER }}
           key: ${{ secrets.STAGING_SSH_PRIVATE_KEY }}
-          script: ansible-playbook ./ansible/playbook.yml
+          script: |
+          cd /root/inkmatch-back-end
+          ansible-playbook playbook.yml
