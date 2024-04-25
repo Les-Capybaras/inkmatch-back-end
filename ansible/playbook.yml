@@ -29,7 +29,7 @@
       command: ln -s /root/app/releases/{{ ansible_date_time.date }}-{{ ansible_date_time.hour }}-{{ ansible_date_time.minute }}-{{ ansible_date_time.second }} /root/app/current
 
     - name: Build and run Docker container
-      command: docker-compose up -d --build
+      command: docker compose -f docker-compose.prod.yml up -d --build
       args:
         chdir: /root/app/current
 
