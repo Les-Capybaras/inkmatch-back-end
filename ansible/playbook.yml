@@ -16,8 +16,13 @@
         src: /root/inkmatch-back-end/.env.staging
         dest: /root/inkmatch-back-end/.env
 
-    - name: Build and run Docker container
-      command: docker compose -f docker-compose.prod.yml up -d --build
+    - name: Build Docker container
+      command: docker compose -f docker-compose.prod.yml build --no-cache
+      args:
+        chdir: /root/inkmatch-back-end
+
+    - name: Start Docker container
+      command: docker compose -f docker-compose.prod.yml up -d
       args:
         chdir: /root/inkmatch-back-end
 
