@@ -16,18 +16,6 @@
         src: /root/inkmatch-back-end/.env.staging
         dest: /root/inkmatch-back-end/.env
 
-    #- name: Create release directory
-    #  command: mkdir -p /root/app/releases/{{ ansible_date_time.date }}-{{ ansible_date_time.hour }}-{{ ansible_date_time.minute }}-{{ ansible_date_time.second }}
-#
-    #- name: Copy code to release directory
-    #  command: cp -a /root/inkmatch-back-end/* /root/app/releases/{{ ansible_date_time.date }}-{{ ansible_date_time.hour }}-{{ ansible_date_time.minute }}
-#
-    #- name: Remove old symbolic link
-    #  command: rm -f /root/app/current
-#
-    #- name: Create new symbolic link
-    #  command: ln -s /root/app/releases/{{ ansible_date_time.date }}-{{ ansible_date_time.hour }}-{{ ansible_date_time.minute }} /root/app/current
-
     - name: Build and run Docker container
       command: docker compose -f docker-compose.prod.yml up -d --build
       args:
