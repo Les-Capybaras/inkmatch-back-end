@@ -16,6 +16,11 @@
         src: /root/inkmatch-back-end/.env.staging
         dest: /root/inkmatch-back-end/.env
 
+    - name: Stop Docker container
+      command: docker compose down --remove-orphans
+      args:
+        chdir: /root/inkmatch-back-end
+
     - name: Build Docker container
       command: docker compose -f docker-compose.prod.yml build --no-cache
       args:
