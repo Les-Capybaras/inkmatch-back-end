@@ -1,3 +1,5 @@
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Les-Capybaras/inkmatch-back-end/ci.yaml)
+
 # Inkmatch API
 
 Ce projet est une API construite avec le framework AdonisJS.
