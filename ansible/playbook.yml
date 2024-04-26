@@ -1,0 +1,38 @@
+---
+- name: Update code and run Docker container
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Clone or pull code from Git repository
+      git:
+        repo: git@github.com:Les-Capybaras/inkmatch-back-end.git
+        dest: /root/inkmatch-back-end
+        version: staging
+        update: yes
+
+    - name: Copy .env file
+      copy:
+        src: /root/inkmatch-back-end/.env.staging
+        dest: /root/inkmatch-back-end/.env
+
+    - name: Stop Docker container
+      command: docker compose down --remove-orphans
+      args:
+        chdir: /root/inkmatch-back-end
+
+    - name: Build Docker container
+      command: docker compose -f docker-compose.prod.yml build --no-cache
+      args:
+        chdir: /root/inkmatch-back-end
+
+    - name: Start Docker container
+      command: docker compose -f docker-compose.prod.yml up -d
+      args:
+        chdir: /root/inkmatch-back-end
+
+    - name: Remove old Docker images
+      command: docker image prune -f
+
+    - name: Remove old Docker containers
+      command: docker container prune -f

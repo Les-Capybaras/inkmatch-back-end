@@ -1,9 +1,9 @@
-name: Production CI/CD Pipeline
+name: CI Pipeline
 
 on:
-  push:
+  pull_request:
     branches:
-      - main
+      - '*'
 
 jobs:
   Build:
@@ -82,22 +82,3 @@ jobs:
 
       - name: Run code coverage
         run: npm run test:coverage
-
-  #Deploy:
-  #  runs-on: ubuntu-latest
-  #  needs: [Build, Tests, QA]
-  #  steps:
-  #    - name: Checkout Repository
-  #      uses: actions/checkout@v4
-#
-#    - name: Deploy App
-#      uses: appleboy/ssh-action@master
-#      with:
-#        host: ${{ secrets.PROD_SSH_HOST }}
-#        username: ${{ secrets.PROD_SSH_USER }}
-#        key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
-#        script: |
-#          cd ~/inkmatch-back-end
-#          cp .env.staging .env
-#          git pull
-#          docker compose -f docker-compose.prod.yml up -d --build
