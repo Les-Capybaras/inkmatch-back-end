@@ -17,7 +17,7 @@ test.group('should be able to autenticate with login on a account', () => {
       password: 'invalid-password',
     })
 
-    response.assertStatus(400)
+    response.assertStatus(422)
     response.assertBodyContains({
       errors: [
         {

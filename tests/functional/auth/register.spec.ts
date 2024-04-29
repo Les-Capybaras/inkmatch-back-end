@@ -23,11 +23,21 @@ test.group('should be able to create an account', () => {
       password_confirmation: 'double-password',
     })
 
-    response.assertStatus(401)
+    response.assertStatus(422)
     response.assertBodyContains({
       errors: [
         {
-          message: 'Invalid user input to be confirmed',
+          field: 'email',
+          message: 'The email field must be a valid email address',
+          rule: 'email',
+        },
+        {
+          field: 'password',
+          message: 'The password field and password_confirmation field must be the same',
+          meta: {
+            otherField: 'password_confirmation',
+          },
+          rule: 'confirmed',
         },
       ],
     })
