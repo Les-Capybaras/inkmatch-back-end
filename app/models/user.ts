@@ -15,13 +15,31 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare id: number
 
   @column()
-  declare fullName: string | null
-
-  @column()
   declare email: string
 
   @column()
   declare password: string
+
+  @column()
+  declare firstName: string | null
+
+  @column()
+  declare lastName: string | null
+
+  @column()
+  declare phoneNumber: string | null
+
+  @column()
+  declare address: string | null
+
+  @column()
+  declare city: string | null
+
+  @column()
+  declare zipCode: string | null
+
+  @column()
+  declare country: string | null
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
