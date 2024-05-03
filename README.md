@@ -29,7 +29,6 @@ Voici une brève description de la structure du dossier de l'API :
 2. `docker compose up -d` pour démarrer les containers
 3. L'api est disponible ici : `http://localhost:3333`
 
-
 ## Production Build
 
 1. `docker compose -f docker-compose.prod.yml build` pour créer les containers les dépendances.
