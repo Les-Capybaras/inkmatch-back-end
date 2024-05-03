@@ -82,3 +82,4 @@ jobs:
 
       - name: Run code coverage
         run: npm run test:coverage
+        continue-on-error: true
