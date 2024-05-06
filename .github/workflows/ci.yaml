@@ -68,11 +68,16 @@ jobs:
         with:
           node-version: 20.x
 
-      - name: Build and start services
+      - name: Get dependencies
         run: npm ci
 
       - name: Copy .env.example
         run: cp .env.example .env
+
+      - name: Run database migration & seeds
+        run: |
+          node ace migration:run
+          node ace db:seed
 
       - name: Run unit tests
         run: npm run test:unit
