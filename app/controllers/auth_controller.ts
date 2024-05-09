@@ -8,7 +8,7 @@ export default class AuthController {
     const user = await User.create(payload)
     const token = await User.accessTokens.create(user)
 
-    return ctx.response.json({ token })
+    return ctx.response.status(201).json({ token })
   }
 
   async login(ctx: HttpContext) {
