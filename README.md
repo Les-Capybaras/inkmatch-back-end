@@ -33,6 +33,3 @@ Description de la structure du folder de l'API :
 
 1. `docker compose -f docker-compose.prod.yml build` pour créer les containers les dépendances.
 2. `docker compose -f docker-compose.prod.yml up -d` pour démarrer les containers
-
-
-BREVO_API_KEY=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
