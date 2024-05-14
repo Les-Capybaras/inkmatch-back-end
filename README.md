@@ -6,7 +6,7 @@ Ce projet est une API construite avec le framework AdonisJS.
 
 ## Structure du projet
 
-Voici une brève description de la structure du dossier de l'API :
+Description de la structure du folder de l'API :
 
 - `app`: Contient le code source de l'application. C'est ici que vous trouverez les modèles, les contrôleurs, les validateurs, etc.
 - `config`: Contient les fichiers de configuration de l'application.
@@ -21,7 +21,7 @@ Voici une brève description de la structure du dossier de l'API :
 1. Clonez ce dépôt.
 2. Exécutez `npm install` pour installer les dépendances.
 3. Copiez `.env.example` en `.env` et mettez à jour les variables d'environnement si nécessaire.
-4. Exécutez `adonis migration:run` pour créer les tables de la base de données.
+4. Exécutez `make start` pour lancer les containers / les migrations et les seeds de bdd.
 
 ## Docker
 
