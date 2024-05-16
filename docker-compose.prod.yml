@@ -4,8 +4,10 @@ services:
     image: postgres
     volumes:
       - postgres_volume:/var/lib/postgresql/data
-    env_file:
-      - .env
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: inkmatch
     ports:
       - 5432:5432
 
