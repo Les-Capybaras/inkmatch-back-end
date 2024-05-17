@@ -32,7 +32,7 @@
         chdir: /root/inkmatch-back-end
 
     - name: Run migrations
-      command: docker exec -it adonis node ace migration:run
+      command: docker exec -it adonis node ace migration:run --force
       args:
         chdir: /root/inkmatch-back-end
 
