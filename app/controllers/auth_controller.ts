@@ -1,6 +1,8 @@
 import User from '#models/user'
 import { registerUserValidator, loginUserValidator } from '#validators/auth'
 import { HttpContext } from '@adonisjs/core/http'
+/*TODO: Implementer mailer*/
+/*import Mailer from '#mailer'*/
 
 export default class AuthController {
   async register(ctx: HttpContext) {
@@ -13,6 +15,9 @@ export default class AuthController {
 
   async login(ctx: HttpContext) {
     const { email, password } = await ctx.request.validateUsing(loginUserValidator)
+
+    /*await Mailer.sendDefaultEmail(email);*/
+
     const user = await User.verifyCredentials(email, password)
 
     if (!user) {
