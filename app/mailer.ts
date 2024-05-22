@@ -1,4 +1,4 @@
-import mail from "@adonisjs/mail/services/main";
+/*import mail from "@adonisjs/mail/services/main";
 
 export default class Mailer {
   async sendDefaultEmail(email: string) {
@@ -10,4 +10,4 @@ export default class Mailer {
         .htmlView('emails/login', { email: "test@test.com" })
     })
   }
-}
+}*/

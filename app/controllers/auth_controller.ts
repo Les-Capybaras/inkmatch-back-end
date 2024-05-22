@@ -1,7 +1,8 @@
 import User from '#models/user'
 import { registerUserValidator, loginUserValidator } from '#validators/auth'
 import { HttpContext } from '@adonisjs/core/http'
-import Mailer from '#mailer'
+/*TODO: Implementer mailer*/
+/*import Mailer from '#mailer'*/
 
 export default class AuthController {
   async register(ctx: HttpContext) {
