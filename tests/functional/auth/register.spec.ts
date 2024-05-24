@@ -52,7 +52,7 @@ test.group('should be able to create an account', () => {
 
   test('Should not be able to register if the mail is already taken', async ({ client }) => {
     const response = await client.post('/register').json({
-      email: 'ismadev.work@gmail.com', // This mail is used in seeds
+      email: 'inkmatch@email.com', // This mail is used in seeds
       password: 'secret',
     })
 

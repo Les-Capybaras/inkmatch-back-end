@@ -11,6 +11,14 @@ services:
     ports:
       - 5432:5432
 
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+
   adonis:
     container_name: adonis
     restart: always

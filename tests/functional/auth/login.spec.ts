@@ -3,7 +3,7 @@ import { test } from '@japa/runner'
 test.group('should be able to autenticate with login on a account', () => {
   test('Should be able to login as a user', async ({ assert, client }) => {
     const response = await client.post('/login').json({
-      email: 'ismadev.work@gmail.com',
+      email: 'inkmatch@email.com',
       password: 'adminPassword',
     })
 

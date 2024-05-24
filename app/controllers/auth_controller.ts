@@ -41,7 +41,7 @@ export default class AuthController {
     const user = await User.findBy('email', email)
 
     if (!user) {
-      return ctx.response.status(404).json({ message: 'User not found' })
+      return ctx.response.status(400).json({ message: 'Invalid email address.' })
     }
 
     const token = crypto.randomBytes(32).toString('hex')
@@ -55,7 +55,9 @@ export default class AuthController {
 
     await Mailer.sendResetPasswordEmail(user.email, token)
 
-    return ctx.response.json({ message: 'Reset password email sent' })
+    return ctx.response.ok({
+      message: 'If an account with that email exists, a reset link has been sent.',
+    })
   }
 
   async resetPassword(ctx: HttpContext) {
@@ -67,7 +69,7 @@ export default class AuthController {
       .first()
 
     if (!resetToken) {
-      return ctx.response.badRequest({ message: 'Invalid or expired token' })
+      return ctx.response.badRequest({ message: 'Invalid or expired token.' })
     }
 
     const user = resetToken.user
@@ -76,6 +78,6 @@ export default class AuthController {
 
     await resetToken.delete()
 
-    return ctx.response.json({ message: 'Password reset successfully' })
+    return ctx.response.ok({ message: 'Password reset successfully.' })
   }
 }
