@@ -30,3 +30,22 @@ export const loginUserValidator = vine.compile(
     password: vine.string(),
   })
 )
+
+/**
+ * Validates the user's password reset request
+ */
+export const requestResetPasswordValidator = vine.compile(
+  vine.object({
+    email: vine.string().email(),
+  })
+)
+
+/**
+ * Validates the user's password reset request
+ */
+export const resetPasswordValidator = vine.compile(
+  vine.object({
+    token: vine.string(),
+    password: vine.string().minLength(8).maxLength(32).confirmed(),
+  })
+)
