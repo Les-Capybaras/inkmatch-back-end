@@ -4,7 +4,6 @@ import { DateTime } from 'luxon'
 import crypto from 'node:crypto'
 import { test } from '@japa/runner'
 import hash from '@adonisjs/core/services/hash'
-import { cp } from 'node:fs'
 
 // TODO: Implement tests for the reset password feature
 // 1. Test that a user can request a password reset
