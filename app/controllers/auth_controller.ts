@@ -25,10 +25,6 @@ export default class AuthController {
 
     const user = await User.verifyCredentials(email, password)
 
-    if (!user) {
-      return ctx.response.badRequest({ message: 'Invalid credentials' })
-    }
-
     const token = await User.accessTokens.create(user)
 
     return ctx.response.json({ token })
