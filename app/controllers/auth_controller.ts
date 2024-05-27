@@ -1,5 +1,5 @@
 import User from '#models/user'
-import ResetToken from '#models/reset_token'
+import MailingToken from '#models/mailing_token'
 import {
   registerUserValidator,
   loginUserValidator,
@@ -16,6 +16,17 @@ export default class AuthController {
     const payload = await ctx.request.validateUsing(registerUserValidator)
     const user = await User.create(payload)
     const token = await User.accessTokens.create(user)
+
+    const mailingToken = crypto.randomBytes(32).toString('hex')
+    const expiresAt = DateTime.now().plus({ hours: 1 })
+
+    await MailingToken.create({
+      mailingToken,
+      userId: user.id,
+      expiresAt,
+    })
+
+    await Mailer.sendConfirmationEmail(user.email, mailingToken)
 
     return ctx.response.status(201).json({ token })
   }
@@ -43,7 +54,7 @@ export default class AuthController {
     const token = crypto.randomBytes(32).toString('hex')
     const expiresAt = DateTime.now().plus({ hours: 1 })
 
-    await ResetToken.create({
+    await MailingToken.create({
       token,
       userId: user.id,
       expiresAt,
@@ -58,21 +69,21 @@ export default class AuthController {
 
   async resetPassword(ctx: HttpContext) {
     const { token, password } = await ctx.request.validateUsing(resetPasswordValidator)
-    const resetToken = await ResetToken.query()
+    const MailingToken = await MailingToken.query()
       .where('token', token)
       .andWhere('expiresAt', '>', DateTime.now().toSQL())
       .preload('user')
       .first()
 
-    if (!resetToken) {
+    if (!MailingToken) {
       return ctx.response.badRequest({ message: 'Invalid or expired token.' })
     }
 
-    const user = resetToken.user
+    const user = MailingToken.user
     user.password = password
     await user.save()
 
-    await resetToken.delete()
+    await MailingToken.delete()
 
     return ctx.response.ok({ message: 'Password reset successfully.' })
   }

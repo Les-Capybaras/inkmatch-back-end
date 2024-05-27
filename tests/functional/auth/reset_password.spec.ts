@@ -1,5 +1,5 @@
 import User from '#models/user'
-import ResetToken from '#models/reset_token'
+import MailingToken from '#models/mailing_token'
 import { DateTime } from 'luxon'
 import crypto from 'node:crypto'
 import { test } from '@japa/runner'
@@ -63,7 +63,7 @@ test.group('should be able to reset password', () => {
     const token = crypto.randomBytes(32).toString('hex')
     const expiresAt = DateTime.now().plus({ hours: 1 })
 
-    await ResetToken.create({
+    await MailingToken.create({
       token,
       userId: user.id,
       expiresAt,
@@ -109,7 +109,7 @@ test.group('should be able to reset password', () => {
     const token = crypto.randomBytes(32).toString('hex')
     const expiresAt = DateTime.now().minus({ hours: 1 })
 
-    await ResetToken.create({
+    await MailingToken.create({
       token,
       userId: user.id,
       expiresAt,
@@ -137,7 +137,7 @@ test.group('should be able to reset password', () => {
     const token = crypto.randomBytes(32).toString('hex')
     const expiresAt = DateTime.now().plus({ hours: 1 })
 
-    await ResetToken.create({
+    await MailingToken.create({
       token,
       userId: user.id,
       expiresAt,
@@ -168,7 +168,7 @@ test.group('should be able to reset password', () => {
     const token = crypto.randomBytes(32).toString('hex')
     const expiresAt = DateTime.now().plus({ hours: 1 })
 
-    await ResetToken.create({
+    await MailingToken.create({
       token,
       userId: user.id,
       expiresAt,

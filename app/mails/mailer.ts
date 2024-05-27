@@ -21,4 +21,15 @@ export default class Mailer {
         .htmlView('emails/reset-password', { resetLink })
     })
   }
+
+  static async sendConfirmationEmail(email: string, token: string) {
+    const resetLink = `http://your-app-url/confirm-account/${token}`
+    await mail.send((message) => {
+      message
+        .to(email)
+        .from('inkmatch@ismadev.fr')
+        .subject('Confirm your account')
+        .htmlView('emails/confirm-account', { resetLink })
+    })
+  }
 }

@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
 
-export default class ResetToken extends BaseModel {
+export default class MailingToken extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
