@@ -41,6 +41,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare country: string | null
 
+  @column({ consume: (value) => !!value })
+  declare hasConfirmedEmail: boolean
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

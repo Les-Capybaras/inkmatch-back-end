@@ -17,6 +17,6 @@ router.get('/', async () => {
 
 router.post('/login', '#controllers/auth_controller.login')
 router.post('/register', '#controllers/auth_controller.register')
-
+router.post('/verify-email', '#controllers/auth_controller.verifyEmail')
 router.post('/reset-password', '#controllers/auth_controller.requestResetPassword')
 router.post('/reset-password/:token', '#controllers/auth_controller.resetPassword')

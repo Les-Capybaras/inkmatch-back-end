@@ -5,6 +5,7 @@ import {
   loginUserValidator,
   resetPasswordValidator,
   requestResetPasswordValidator,
+  verifyEmailValidator,
 } from '#validators/auth'
 import { HttpContext } from '@adonisjs/core/http'
 import { DateTime } from 'luxon'
@@ -21,7 +22,7 @@ export default class AuthController {
     const expiresAt = DateTime.now().plus({ hours: 1 })
 
     await MailingToken.create({
-      mailingToken,
+      token: mailingToken,
       userId: user.id,
       expiresAt,
     })
@@ -29,6 +30,27 @@ export default class AuthController {
     await Mailer.sendConfirmationEmail(user.email, mailingToken)
 
     return ctx.response.status(201).json({ token })
+  }
+
+  async verifyEmail(ctx: HttpContext) {
+    const { token } = await ctx.request.validateUsing(verifyEmailValidator)
+    const mailingToken = await MailingToken.query()
+      .where('token', token)
+      .andWhere('expiresAt', '>', DateTime.now().toSQL())
+      .preload('user')
+      .first()
+
+    if (!mailingToken) {
+      return ctx.response.badRequest({ message: 'Invalid or expired token.' })
+    }
+
+    const user = mailingToken.user
+    user.hasConfirmedEmail = true
+    await user.save()
+
+    await mailingToken.delete()
+
+    return ctx.response.ok({ message: 'Emails hass been verified' })
   }
 
   async login(ctx: HttpContext) {
@@ -69,21 +91,21 @@ export default class AuthController {
 
   async resetPassword(ctx: HttpContext) {
     const { token, password } = await ctx.request.validateUsing(resetPasswordValidator)
-    const MailingToken = await MailingToken.query()
+    const mailingToken = await MailingToken.query()
       .where('token', token)
       .andWhere('expiresAt', '>', DateTime.now().toSQL())
       .preload('user')
       .first()
 
-    if (!MailingToken) {
+    if (!mailingToken) {
       return ctx.response.badRequest({ message: 'Invalid or expired token.' })
     }
 
-    const user = MailingToken.user
+    const user = mailingToken.user
     user.password = password
     await user.save()
 
-    await MailingToken.delete()
+    await mailingToken.delete()
 
     return ctx.response.ok({ message: 'Password reset successfully.' })
   }

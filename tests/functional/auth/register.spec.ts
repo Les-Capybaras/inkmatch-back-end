@@ -1,7 +1,11 @@
 import { test } from '@japa/runner'
+import mail from '@adonisjs/mail/services/main'
+import VerifyAccount from '#mails/verify_account'
 
 test.group('should be able to create an account', () => {
   test('Should be able to register as a regular user', async ({ assert, client }) => {
+    const { mails } = mail.fake()
+
     const mockPayload = {
       email: 'test@example.com',
       password: 'password123',
@@ -20,7 +24,14 @@ test.group('should be able to create an account', () => {
     response.assertStatus(201)
     assert.exists(response.body().token)
 
-    // TODO : implement test on confirmation mail
+    mails.assertSentCount(1)
+    mails.assertSent(VerifyAccount, (email) => {
+      email.message.assertTo(mockPayload.email)
+      email.message.assertFrom('inkmatch@ismadev.fr')
+      email.message.assertSubject('Verify your account')
+
+      return true
+    })
   })
 
   test('Should not be able to register with invalid input', async ({ client }) => {
