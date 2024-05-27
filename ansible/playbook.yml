@@ -31,11 +31,6 @@
       args:
         chdir: /root/inkmatch-back-end
 
-    - name: Run migrations
-      command: docker exec adonis node ace migration:run --force
-      args:
-        chdir: /root/inkmatch-back-end
-
     - name: Remove old Docker images
       command: docker image prune -f
 
