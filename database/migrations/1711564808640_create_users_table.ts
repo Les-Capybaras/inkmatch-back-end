@@ -15,6 +15,7 @@ export default class extends BaseSchema {
       table.string('city').nullable()
       table.string('zip_code').nullable()
       table.string('country').nullable()
+      table.boolean('has_confirmed_email').defaultTo(false)
 
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()

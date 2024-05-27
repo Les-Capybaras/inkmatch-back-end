@@ -49,3 +49,9 @@ export const resetPasswordValidator = vine.compile(
     password: vine.string().minLength(8).maxLength(32).confirmed(),
   })
 )
+
+export const verifyEmailValidator = vine.compile(
+  vine.object({
+    token: vine.string(),
+  })
+)

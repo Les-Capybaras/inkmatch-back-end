@@ -1,35 +1,17 @@
 import mail from '@adonisjs/mail/services/main'
+import VerifyAccount from './verify_account.js'
+import ResetPassword from './reset_password.js'
 
 export default class Mailer {
-  // async sendDefaultEmail(email: string) {
-  //   await mail.send((message) => {
-  //     message
-  //       .to(email)
-  //       .from('inkmatch@ismadev.fr')
-  //       .subject('Login sucessful!')
-  //       .htmlView('emails/login', { email: 'test@test.com' })
-  //   })
-  // }
-
   static async sendResetPasswordEmail(email: string, token: string) {
     const resetLink = `http://your-app-url/reset-password/${token}`
-    await mail.send((message) => {
-      message
-        .to(email)
-        .from('inkmatch@ismadev.fr')
-        .subject('Reset your password')
-        .htmlView('emails/reset-password', { resetLink })
-    })
+    const resetPassword = new ResetPassword(email, resetLink)
+    await mail.send(resetPassword)
   }
 
   static async sendConfirmationEmail(email: string, token: string) {
     const resetLink = `http://your-app-url/confirm-account/${token}`
-    await mail.send((message) => {
-      message
-        .to(email)
-        .from('inkmatch@ismadev.fr')
-        .subject('Confirm your account')
-        .htmlView('emails/confirm-account', { resetLink })
-    })
+    const verifyEmail = new VerifyAccount(email, resetLink)
+    await mail.send(verifyEmail)
   }
 }

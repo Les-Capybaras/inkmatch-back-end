@@ -4,6 +4,8 @@ import { DateTime } from 'luxon'
 import crypto from 'node:crypto'
 import { test } from '@japa/runner'
 import hash from '@adonisjs/core/services/hash'
+import mail from '@adonisjs/mail/services/main'
+import ResetPassword from '#mails/reset_password'
 
 // TODO: Implement tests for the reset password feature
 // 1. Test that a user can request a password reset
@@ -15,6 +17,8 @@ import hash from '@adonisjs/core/services/hash'
 
 test.group('should be able to reset password', () => {
   test('Should be able to request a password reset', async ({ assert, client }) => {
+    const { mails } = mail.fake()
+
     const mockPayload = {
       email: 'inkmatch@email.com',
     }
@@ -26,6 +30,14 @@ test.group('should be able to reset password', () => {
       response.body().message,
       'If an account with that email exists, a reset link has been sent.'
     )
+
+    mails.assertSent(ResetPassword, (email) => {
+      email.message.assertTo(mockPayload.email)
+      email.message.assertFrom('inkmatch@ismadev.fr')
+      email.message.assertSubject('Reset your password')
+
+      return true
+    })
   })
 
   test('Should not be able to request a password reset with an invalid email address', async ({
