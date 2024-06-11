@@ -34,6 +34,41 @@ test.group('should be able to create an account', () => {
     })
   })
 
+  test('Should be able to register as a tattoo artist', async ({ assert, client }) => {
+    const { mails } = mail.fake()
+
+    const mockPayload = {
+      email: 'tattoo@inkmatch.com',
+      password: 'password123',
+      password_confirmation: 'password123',
+      firstName: 'John',
+      lastName: 'Doe',
+      phoneNumber: '+33623456789',
+      address: '123 Rue de la Paix',
+      city: 'Paris',
+      zipCode: '75001',
+      country: 'France',
+      isArtist: true,
+      companyName: 'InkMatch',
+      legalForm: 'SAS',
+      siret: '12345678912345',
+    }
+
+    const response = await client.post('/register').json(mockPayload)
+
+    response.assertStatus(201)
+    assert.exists(response.body().token)
+
+    mails.assertSentCount(1)
+    mails.assertSent(VerifyAccount, (email) => {
+      email.message.assertTo(mockPayload.email)
+      email.message.assertFrom('inkmatch@ismadev.fr')
+      email.message.assertSubject('Verify your account')
+
+      return true
+    })
+  })
+
   test('Should not be able to register with invalid input', async ({ client }) => {
     const response = await client.post('/register').json({
       email: 'capybara',

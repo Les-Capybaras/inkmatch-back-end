@@ -1,5 +1,6 @@
 import vine from '@vinejs/vine'
 import { uniqueRule } from './rules/unique.js'
+import { LegalForm } from '../enums/legal_form.js'
 
 /**
  * Validates the user's register
@@ -18,6 +19,10 @@ export const registerUserValidator = vine.compile(
     city: vine.string().optional(),
     zipCode: vine.string().minLength(5).maxLength(5).optional(),
     country: vine.string().optional(),
+    isArtist: vine.boolean().optional(),
+    companyName: vine.string().optional(),
+    legalForm: vine.enum(LegalForm).optional(),
+    siret: vine.string().fixedLength(14).optional(),
   })
 )
 
