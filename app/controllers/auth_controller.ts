@@ -11,11 +11,13 @@ import { HttpContext } from '@adonisjs/core/http'
 import { DateTime } from 'luxon'
 import crypto from 'node:crypto'
 import Mailer from '#mails/mailer'
+import Artist from '#models/artist'
 
 export default class AuthController {
   async register(ctx: HttpContext) {
-    const payload = await ctx.request.validateUsing(registerUserValidator)
-    const user = await User.create(payload)
+    const { isArtist, ...payload } = await ctx.request.validateUsing(registerUserValidator)
+
+    const user = isArtist ? await Artist.create(payload) : await User.create(payload)
     const token = await User.accessTokens.create(user)
 
     const mailingToken = crypto.randomBytes(32).toString('hex')
