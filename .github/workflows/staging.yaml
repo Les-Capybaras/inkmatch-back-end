@@ -82,7 +82,6 @@ jobs:
 
       - name: Run code coverage
         run: npm run test:coverage
-        continue-on-error: true
 
   Deploy:
     runs-on: ubuntu-latest
