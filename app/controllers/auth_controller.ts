@@ -7,11 +7,11 @@ import {
   requestResetPasswordValidator,
   verifyEmailValidator,
 } from '#validators/auth'
-import { HttpContext } from '@adonisjs/core/http'
 import { DateTime } from 'luxon'
-import crypto from 'node:crypto'
-import Mailer from '#mails/mailer'
+import { HttpContext } from '@adonisjs/core/http'
 import Artist from '#models/artist'
+import MailingService from '#services/mailing'
+import Showcase from '#models/showcase'
 
 export default class AuthController {
   async register(ctx: HttpContext) {
@@ -20,16 +20,13 @@ export default class AuthController {
     const user = isArtist ? await Artist.create(payload) : await User.create(payload)
     const token = await User.accessTokens.create(user)
 
-    const mailingToken = crypto.randomBytes(32).toString('hex')
-    const expiresAt = DateTime.now().plus({ hours: 1 })
+    if (isArtist) {
+      const showcase = new Showcase()
+      showcase.userId = user.id
+      await Showcase.create(showcase)
+    }
 
-    await MailingToken.create({
-      token: mailingToken,
-      userId: user.id,
-      expiresAt,
-    })
-
-    await Mailer.sendConfirmationEmail(user.email, mailingToken)
+    await MailingService.createConfirmationEmail(user)
 
     return ctx.response.status(201).json({ token })
   }
@@ -75,16 +72,7 @@ export default class AuthController {
       return ctx.response.status(400).json({ message: 'Invalid email address.' })
     }
 
-    const token = crypto.randomBytes(32).toString('hex')
-    const expiresAt = DateTime.now().plus({ hours: 1 })
-
-    await MailingToken.create({
-      token,
-      userId: user.id,
-      expiresAt,
-    })
-
-    await Mailer.sendResetPasswordEmail(user.email, token)
+    await MailingService.createResetPasswordEmail(user)
 
     return ctx.response.ok({
       message: 'If an account with that email exists, a reset link has been sent.',

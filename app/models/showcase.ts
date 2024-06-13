@@ -10,14 +10,14 @@ export default class Showcase extends BaseModel {
   @column()
   declare userId: number
 
-  @column()
-  declare title: string
+  //@column()
+  //declare title: string
 
-  @column()
-  declare description: string
+  //@column()
+  //declare description: string
 
-  @column()
-  declare verified: boolean
+  //@column()
+  //declare verified: boolean
 
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
