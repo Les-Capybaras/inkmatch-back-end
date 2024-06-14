@@ -20,3 +20,8 @@ router.post('/register', '#controllers/auth_controller.register')
 router.post('/verify-email', '#controllers/auth_controller.verifyEmail')
 router.post('/reset-password', '#controllers/auth_controller.requestResetPassword')
 router.post('/reset-password/:token', '#controllers/auth_controller.resetPassword')
+
+// File routes
+router.get('/files/:id', '#controllers/file_controller.show')
+router.post('/files', '#controllers/file_controller.store')
+router.delete('/files/:id', '#controllers/file_controller.delete')

@@ -6,8 +6,8 @@ export default class File extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
-  @column()
-  declare showcaseId: number
+  //@column()
+  //declare showcaseId: number
 
   @column()
   declare url: string
@@ -15,8 +15,8 @@ export default class File extends BaseModel {
   @column()
   declare type: string
 
-  @column()
-  declare position: number
+  //@column()
+  //declare position: number
 
   @belongsTo(() => Showcase)
   declare showcase: BelongsTo<typeof Showcase>
