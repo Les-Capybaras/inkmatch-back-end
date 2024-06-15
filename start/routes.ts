@@ -8,6 +8,7 @@
 */
 
 import router from '@adonisjs/core/services/router'
+import { middleware } from './kernel.js'
 
 router.get('/', async () => {
   return {
@@ -22,6 +23,9 @@ router.post('/reset-password', '#controllers/auth_controller.requestResetPasswor
 router.post('/reset-password/:token', '#controllers/auth_controller.resetPassword')
 
 // File routes
-router.get('/files/:id', '#controllers/file_controller.show')
-router.post('/files', '#controllers/file_controller.store')
-router.delete('/files/:id', '#controllers/file_controller.delete')
+router.get('/files/:id', '#controllers/file_controller.show').use(middleware.auth())
+router.post('/files', '#controllers/file_controller.store').use(middleware.auth())
+router.delete('/files/:id', '#controllers/file_controller.delete').use(middleware.auth())
+
+// Search routes
+router.get('/artists', '#controllers/search_controller.searchArtists').use(middleware.auth())

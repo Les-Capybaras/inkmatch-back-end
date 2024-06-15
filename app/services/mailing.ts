@@ -9,12 +9,21 @@ export default class MailingService {
   static async createConfirmationEmail(user: User | Artist) {
     const mailingToken = crypto.randomBytes(32).toString('hex')
     const expiresAt = DateTime.now().plus({ hours: 1 })
+    const isArtist = user instanceof Artist
 
-    await MailingToken.create({
-      token: mailingToken,
-      userId: user.id,
-      expiresAt,
-    })
+    if (isArtist) {
+      await MailingToken.create({
+        token: mailingToken,
+        artistId: user.id,
+        expiresAt,
+      })
+    } else {
+      await MailingToken.create({
+        token: mailingToken,
+        userId: user.id,
+        expiresAt,
+      })
+    }
 
     await Mailer.sendConfirmationEmail(user.email, mailingToken)
   }

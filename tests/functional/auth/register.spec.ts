@@ -1,6 +1,8 @@
 import { test } from '@japa/runner'
 import mail from '@adonisjs/mail/services/main'
 import VerifyAccount from '#mails/verify_account'
+import { LegalForm } from '../../../app/enums/legal_form.js'
+import Artist from '#models/artist'
 
 test.group('should be able to create an account', () => {
   test('Should be able to register as a regular user', async ({ assert, client }) => {
@@ -38,20 +40,20 @@ test.group('should be able to create an account', () => {
     const { mails } = mail.fake()
 
     const mockPayload = {
-      email: 'tattoo@inkmatch.com',
-      password: 'password123',
-      password_confirmation: 'password123',
-      firstName: 'John',
-      lastName: 'Doe',
-      phoneNumber: '+33623456789',
-      address: '123 Rue de la Paix',
-      city: 'Paris',
-      zipCode: '75001',
+      email: 'creative@designink.com',
+      password: 'uniquePass789',
+      password_confirmation: 'uniquePass789',
+      firstName: 'Emma',
+      lastName: 'Leroy',
+      phoneNumber: '+33765432198',
+      address: '789 Boulevard des Artistes',
+      city: 'Lyon',
+      zipCode: '69002',
       country: 'France',
       isArtist: true,
-      companyName: 'InkMatch',
-      legalForm: 'SAS',
-      siret: '12345678912345',
+      companyName: 'DesignInk',
+      legalForm: LegalForm.SoleProprietorship,
+      siret: '98765432109876',
     }
 
     const response = await client.post('/register').json(mockPayload)
@@ -67,6 +69,8 @@ test.group('should be able to create an account', () => {
 
       return true
     })
+  }).teardown(async () => {
+    await Artist.query().where('email', 'creative@designink.com').delete()
   })
 
   test('Should not be able to register with invalid input', async ({ client }) => {
