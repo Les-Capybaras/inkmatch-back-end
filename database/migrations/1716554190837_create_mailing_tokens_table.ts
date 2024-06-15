@@ -8,6 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('token').notNullable().unique()
       table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
+      table.integer('artist_id').unsigned().references('id').inTable('artists').onDelete('CASCADE')
       table.timestamp('expires_at', { useTz: true }).notNullable()
       table.timestamp('created_at')
       table.timestamp('updated_at')

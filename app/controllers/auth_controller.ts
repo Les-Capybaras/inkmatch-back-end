@@ -12,18 +12,23 @@ import { HttpContext } from '@adonisjs/core/http'
 import Artist from '#models/artist'
 import MailingService from '#services/mailing'
 import Showcase from '#models/showcase'
+import { AccessToken } from '@adonisjs/auth/access_tokens'
 
 export default class AuthController {
   async register(ctx: HttpContext) {
     const { isArtist, ...payload } = await ctx.request.validateUsing(registerUserValidator)
-
-    const user = isArtist ? await Artist.create(payload) : await User.create(payload)
-    const token = await User.accessTokens.create(user)
+    let user: User | Artist
+    let token: AccessToken
 
     if (isArtist) {
+      user = await Artist.create(payload)
+      token = await Artist.artistAccessTokens.create(user as Artist)
       const showcase = new Showcase()
       showcase.userId = user.id
       await Showcase.create(showcase)
+    } else {
+      user = await User.create(payload)
+      token = await User.accessTokens.create(user)
     }
 
     await MailingService.createConfirmationEmail(user)
