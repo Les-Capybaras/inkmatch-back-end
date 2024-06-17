@@ -58,4 +58,14 @@ test.group('As a client, I should be able to search for artists', () => {
     assert.equal(response.body().length, 2)
     assert.equal(response.body()[0].companyName, 'ArtInk Studio')
   })
+
+  test('Should be able to get the detail of an artist page', async ({ assert, client }) => {
+    const response = await client.get('/artists/1').bearerToken(await loginAsUser(client))
+
+    response.assertStatus(200)
+    assert.containsSubset(response.body(), {
+      id: 1,
+      companyName: 'InkMatch',
+    })
+  })
 })
