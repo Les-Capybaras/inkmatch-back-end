@@ -69,6 +69,16 @@ test.group('should be able to create an account', () => {
 
       return true
     })
+
+    const whoamiResponse = await client.get('/whoami').bearerToken(response.body().token.token)
+    whoamiResponse.assertStatus(200)
+
+    const showcaseResponse = await client
+      .get(`showcases/${whoamiResponse.body().showcase.id}`)
+      .bearerToken(response.body().token.token)
+
+    showcaseResponse.assertStatus(200)
+    assert.equal(showcaseResponse.body().artistId, whoamiResponse.body().id)
   }).teardown(async () => {
     await Artist.query().where('email', 'creative@designink.com').delete()
   })

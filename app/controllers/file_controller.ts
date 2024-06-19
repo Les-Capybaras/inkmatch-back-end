@@ -20,7 +20,9 @@ export default class FileController {
 
     const file = await File.create({
       url: request.file.fileName,
-      type: request.file.type,
+      ext: request.file.extname,
+      size: request.file.size,
+      type: request.type,
     })
 
     return ctx.response.created(file)

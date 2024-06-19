@@ -1,26 +1,17 @@
 import type { HasMany, BelongsTo } from '@adonisjs/lucid/types/relations'
 import { BaseModel, column, hasMany, belongsTo } from '@adonisjs/lucid/orm'
-import User from '#models/user'
 import File from '#models/file'
+import Artist from './artist.js'
 
 export default class Showcase extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
   @column()
-  declare userId: number
+  declare artistId: number
 
-  //@column()
-  //declare title: string
-
-  //@column()
-  //declare description: string
-
-  //@column()
-  //declare verified: boolean
-
-  @belongsTo(() => User)
-  declare user: BelongsTo<typeof User>
+  @belongsTo(() => Artist)
+  declare artist: BelongsTo<typeof Artist>
 
   @hasMany(() => File)
   declare files: HasMany<typeof File>
