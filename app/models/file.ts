@@ -1,23 +1,22 @@
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
-import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
-import Showcase from '#models/showcase'
+import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { FileType } from '../enums/file_type.js'
 
 export default class File extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
-  //@column()
-  //declare showcaseId: number
-
   @column()
   declare url: string
 
   @column()
-  declare type: string
+  declare ext: string
 
-  //@column()
-  //declare position: number
+  @column()
+  declare size: number
 
-  @belongsTo(() => Showcase)
-  declare showcase: BelongsTo<typeof Showcase>
+  @column()
+  declare type: FileType
+
+  @column()
+  declare showcaseId: number
 }

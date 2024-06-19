@@ -9,6 +9,11 @@ test.group('should be able to autenticate with login on a account', () => {
 
     response.assertStatus(200)
     assert.exists(response.body().token)
+
+    const whoamiResponse = await client.get('/whoami').bearerToken(response.body().token.token)
+
+    whoamiResponse.assertStatus(200)
+    assert.equal(whoamiResponse.body().email, 'inkmatch@email.com')
   })
 
   test('Should not be able to sign in with invalid input', async ({ client }) => {

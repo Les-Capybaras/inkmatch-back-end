@@ -13,8 +13,9 @@ export default class extends BaseSchema {
         .inTable('showcases')
         .onDelete('CASCADE')
       table.string('url').notNullable()
+      table.string('ext').notNullable()
+      table.integer('size').notNullable()
       table.string('type').notNullable()
-      table.integer('position').notNullable().defaultTo(0)
 
       table.timestamp('created_at')
       table.timestamp('updated_at')
