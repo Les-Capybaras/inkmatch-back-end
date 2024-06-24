@@ -19,4 +19,7 @@ export default class File extends BaseModel {
 
   @column()
   declare showcaseId: number
+
+  @column()
+  declare appointementId: number
 }

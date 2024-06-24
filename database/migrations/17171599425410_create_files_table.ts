@@ -12,6 +12,12 @@ export default class extends BaseSchema {
         .references('id')
         .inTable('showcases')
         .onDelete('CASCADE')
+      table
+        .integer('appointement_id')
+        .unsigned()
+        .references('id')
+        .inTable('appointements')
+        .onDelete('CASCADE')
       table.string('url').notNullable()
       table.string('ext').notNullable()
       table.integer('size').notNullable()
