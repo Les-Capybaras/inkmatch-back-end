@@ -41,3 +41,6 @@ router
 router
   .put('/showcases', '#controllers/showcase_controller.manageShowcase')
   .use([middleware.auth({ guards: ['artist'] })])
+
+// Appointement routes
+router.post('/appointements', '#controllers/appointement_controller.store').use(middleware.auth())
