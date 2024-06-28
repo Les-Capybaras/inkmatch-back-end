@@ -79,5 +79,10 @@ export default defineConfig({
       pattern: 'resources/views/**/*.edge',
       reloadServer: false,
     },
+    {
+      pattern: 'public/**',
+      reloadServer: false,
+    },
   ],
+  assetsBundler: false,
 })

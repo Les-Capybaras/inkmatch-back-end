@@ -44,3 +44,9 @@ router
 
 // Appointement routes
 router.post('/appointements', '#controllers/appointement_controller.store').use(middleware.auth())
+
+// Quotation routes
+router
+  .get('/quotation/:id', '#controllers/quotation_controller.generate')
+  .use(middleware.auth({ guards: ['artist'] }))
+router.get('/:id/quotation', '#controllers/quotation_controller.displayTemplate')
