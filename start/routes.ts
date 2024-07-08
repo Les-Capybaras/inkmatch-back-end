@@ -44,3 +44,5 @@ router
 
 // Appointement routes
 router.post('/appointements', '#controllers/appointement_controller.store').use(middleware.auth())
+router.put('/appointements/:id/accept', '#controllers/appointement_controller.accept').use(middleware.auth())
+router.put('/appointements/:id/reject', '#controllers/appointement_controller.reject').use(middleware.auth())

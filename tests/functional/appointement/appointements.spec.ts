@@ -16,4 +16,24 @@ test.group('As an user, I should be able to take an appointement with an artist'
 
     assert.equal(response.body().description, 'A description')
   })
+
+  /* Should not be able to take appointment : (multiple situations)
+    - Invalid artistId
+    - invalid date ( < today )
+    - ...
+  */
+})
+
+test.group('As an artist, I should be able to accept an appointment made by a customer', () => {
+  // Artist should be able to accept appointment
+  test('Should be able to accept appointment', () => {})
+  // Artist should not be able to accept
+  test('Should not be able to accept appointment', () => {})
+})
+
+test.group('As an artist, I should be able to reject an appointment made by a customer', () => {
+  // Artist should be able to reject
+  test('Shoud be able to reject appointment', () => {})
+  // Artist should not be able to reject
+  test('Shoud not be able to reject appointment', () => {})
 })
