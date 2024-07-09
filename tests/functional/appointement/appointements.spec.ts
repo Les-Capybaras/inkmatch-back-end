@@ -37,3 +37,10 @@ test.group('As an artist, I should be able to reject an appointment made by a cu
   // Artist should not be able to reject
   test('Shoud not be able to reject appointment', () => {})
 })
+
+test.group('As an artist, I should be able to create an appointment for a customer', () => {
+  // Artist should be able to create an appointment
+  test('Should be able to create an appointment', () => {})
+  // Artist should not be able to create an appointment
+  test('Should not be able to create an appointment', () => {})
+})
