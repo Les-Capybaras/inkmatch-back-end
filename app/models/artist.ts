@@ -66,6 +66,9 @@ export default class Artist extends compose(BaseModel, AuthFinder) {
   @column()
   declare legalForm: LegalForm
 
+  @column()
+  declare preferedArrhesPercentage: number
+
   @hasOne(() => Showcase)
   declare showcase: HasOne<typeof Showcase>
 

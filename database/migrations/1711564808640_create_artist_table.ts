@@ -18,6 +18,7 @@ export default class extends BaseSchema {
       table.boolean('has_confirmed_email').defaultTo(false)
       table.string('company_name').nullable()
       table.string('legal_form').nullable()
+      table.integer('prefered_arrhes_percentage').notNullable().defaultTo(10)
       table.string('siret').nullable()
 
       table.timestamp('created_at').notNullable()

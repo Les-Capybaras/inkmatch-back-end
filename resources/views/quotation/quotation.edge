@@ -5,67 +5,166 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Devis</title>
+  <link rel="stylesheet" href="{{ asset('resources/css/style.css') }}">
+  <link rel="script" href="{{ asset('resources/js/app.js') }}">
 </head>
 
-<body style="font-family: Arial, sans-serif; margin: 0; padding: 20px;">
-  <header style="text-align: center; margin-bottom: 20px;">
-    <h1>ARBRE & BOIS</h1>
-    <h2>DEVIS N°32</h2>
+<body>
+  <header class="header">
+    <h2 class="title">Devis</h2>
+    <p class="quote-number">N° {{ artist.quoteNumber }}</p>
+    <img class="logo" src="{{ asset('resources/img/default-logo.png') }}" alt="Logo">
   </header>
 
-  <section class="client">
-    <h3>Informations client</h3>
-    <p style="margin-bottom: 5px;">Date de validité : 2024-08-24</p>
-    <p style="margin-bottom: 5px;">Nom : Sophie D.</p>
-    <p style="margin-bottom: 5px;">Adresse : 123 rue des Lilas, 75001 Paris</p>
-  </section>
+  <main>
+    <div class="dates">
+      <p class="emit-date">Date d'émission :
+        {{ validityDate }}
+      </p>
+      <p class="validity-date">Date de validité :
+        {{ validityDate }}
+      </p>
+    </div>
 
-  <section class="prestations">
-    <h3>Prestations</h3>
-    <table style="width: 100%; border-collapse: collapse;">
-      <thead>
-        <tr>
-          <th style="background-color: #f2f2f2;">Désignation</th>
-          <th>Date</th>
-          <th>Quantité</th>
-          <th>TVA</th>
-          <th>Montant</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Désotage</td>
-          <td>24/08/2024</td>
-          <td>Jour</td>
-          <td>20%</td>
-          <td>20,00 €</td>
-        </tr>
-        <tr>
-          <td>Célération</td>
-          <td>24/08/2024</td>
-          <td>1</td>
-          <td>20%</td>
-          <td>48 000,00 €</td>
-        </tr>
-        <tr>
-          <td colspan="5">Total HT</td>
-          <td>48 020,00 €</td>
-        </tr>
-        <tr>
-          <td colspan="5">TVA (20%)</td>
-          <td>9 604,00 €</td>
-        </tr>
-        <tr>
-          <td colspan="5">Total TTC</td>
-          <td>57 624,00 €</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+    <div class="personals">
+      <section class="artist">
+        <h2 class="origin">Émetteur :</h2>
+        <h1 class="name">{{ artist.companyName }}</h1>
+        <p class="lastname">Nom : {{ artist.lastName }}</p>
+        <p class="adress">Adresse : {{ artist.address }}</p>
+        <p class="mail">Mail : {{ artist.email }}</p>
+        <p class="tel">Tel : {{ artist.tel }}</p>
+      </section>
 
-  <footer style="text-align: center; margin-top: 20px;">
-    <p>Construction : SASU ARBRE & BOIS</p>
+      <section class="client">
+        <h2 class="origin">Destinataire :</h2>
+        <h1 class="name">{{ client.lastName }}</h1>
+        <p class="adress">Adresse : {{ client.address }}</p>
+        <p class="mail">Mail : {{ client.email }}</p>
+        <p class="tel">Tel : {{ client.tel }}</p>
+      </section>
+    </div>
+
+
+    <section class="prestations">
+      <h3>Prestations</h3>
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th style="background-color: #f2f2f2;">Désignation</th>
+            <th>Date</th>
+            <th>Quantité</th>
+            <th>TVA</th>
+            <th>Montant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Tatouage</td>
+            <td>{{ appointement.date }}</td>
+            <td>1</td>
+            <td>20%</td>
+            <td>20,00 €</td>
+          </tr>
+          <tr>
+            <td colspan="5">Total HT</td>
+            <td>{{ pricing.ht }}</td>
+          </tr>
+          <tr>
+            <td colspan="5">TVA (20%)</td>
+            <td>{{ pricing.tva }}</td>
+          </tr>
+          <tr>
+            <td colspan="5">Total TTC</td>
+            <td>{{ pricing.ttc }} €</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="signature">Signature :</p>
   </footer>
 </body>
 
 </html>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  main {
+    padding: 25px 300px;
+  }
+
+  .dates {
+    padding: 30px 0;
+  }
+
+  .personals {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0;
+  }
+
+  .quote-number {
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+  }
+
+  header {
+    background-color: #f2f2f2;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding: 25px 300px;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .logo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .client {
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+  .prestations {
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  footer {
+    background-color: #f2f2f2;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding: 25px 300px;
+  }
+</style>
