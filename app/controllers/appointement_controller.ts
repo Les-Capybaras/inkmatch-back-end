@@ -17,9 +17,40 @@ export default class AppointementController {
 
     return ctx.response.created(appointement)
   }
+
   async delete(ctx: HttpContext) {
     const appointement = await Appointement.findOrFail(ctx.params.id)
     await appointement.delete()
     return ctx.response.noContent()
+  }
+
+  async accept(ctx: HttpContext) {
+    const appointement = await Appointement.findOrFail(ctx.params.id)
+
+    if (appointement.artistId !== ctx.auth.user?.id) {
+      return ctx.response.forbidden()
+    }
+
+    appointement.status = AppointementStatus.Accepted
+    await appointement.save()
+
+    // TODO: Send alert/email/something to customer
+
+    return ctx.response.ok(appointement)
+  }
+
+  async reject(ctx: HttpContext) {
+    const appointement = await Appointement.findOrFail(ctx.params.id)
+
+    if (appointement.artistId !== ctx.auth.user?.id) {
+      return ctx.response.forbidden()
+    }
+
+    appointement.status = AppointementStatus.Rejected
+    await appointement.save()
+
+    // TODO: Send alert/email/something to customer
+
+    return ctx.response.ok(appointement)
   }
 }

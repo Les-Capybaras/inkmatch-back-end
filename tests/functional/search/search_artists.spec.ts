@@ -3,7 +3,7 @@ import { loginAsUser } from '../auth.js'
 
 test.group('As a client, I should be able to search for artists', () => {
   test('Should be able to search for artists', async ({ assert, client }) => {
-    const response = await client.get('/artists').bearerToken(await loginAsUser(client))
+    const response = await client.get('/artists').bearerToken(await loginAsUser(client, 1))
 
     response.assertStatus(200)
     assert.isArray(response.body())
@@ -22,7 +22,7 @@ test.group('As a client, I should be able to search for artists', () => {
   test('Should be able to search for artists by companyName', async ({ assert, client }) => {
     const response = await client
       .get('/artists?companyName=InkMatch')
-      .bearerToken(await loginAsUser(client))
+      .bearerToken(await loginAsUser(client, 1))
 
     response.assertStatus(200)
     assert.isArray(response.body())
@@ -41,7 +41,7 @@ test.group('As a client, I should be able to search for artists', () => {
   }) => {
     const response = await client
       .get('/artists?order=companyName')
-      .bearerToken(await loginAsUser(client))
+      .bearerToken(await loginAsUser(client, 1))
 
     response.assertStatus(200)
     assert.isArray(response.body())
@@ -60,7 +60,7 @@ test.group('As a client, I should be able to search for artists', () => {
   })
 
   test('Should be able to get the detail of an artist page', async ({ assert, client }) => {
-    const response = await client.get('/artists/1').bearerToken(await loginAsUser(client))
+    const response = await client.get('/artists/1').bearerToken(await loginAsUser(client, 1))
 
     response.assertStatus(200)
     assert.containsSubset(response.body(), {
