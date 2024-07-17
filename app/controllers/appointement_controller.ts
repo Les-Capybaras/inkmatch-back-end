@@ -17,6 +17,7 @@ export default class AppointementController {
 
     return ctx.response.created(appointement)
   }
+  
   async delete(ctx: HttpContext) {
     const appointement = await Appointement.findOrFail(ctx.params.id)
     await appointement.delete()
