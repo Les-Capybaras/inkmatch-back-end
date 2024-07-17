@@ -111,3 +111,55 @@ test.group('As an artist, I should be able to reject an appointment made by a cu
     assert.equal(response.body().message, 'Row not found')
   })
 })
+
+test.group('As an artist, I should be able to take an appointement with a customer', () => {
+  test('Should be able to create an appointment', async ({ assert, client }) => {
+    const response = await client
+      .post('/appointements/artist-to-client')
+      .bearerToken(await loginAsArtist(client, 2))
+      .json({
+        userId: 2,
+        date: '2024-11-11',
+        description: 'A description',
+      })
+
+    assert.equal(response.status(), 201)
+    assert.equal(response.body().description, 'A description')
+  })
+  test('Should not be able to create an appointment for user that does not exist', async ({
+    assert,
+    client,
+  }) => {
+    const response = await client
+      .post('/appointements/artist-to-client')
+      .bearerToken(await loginAsArtist(client, 2))
+      .json({
+        userId: 45,
+        date: '2024-11-11',
+        description: 'A description',
+      })
+
+    assert.equal(response.status(), 400)
+    assert.equal(response.body().message, 'Could not create appointement')
+  })
+
+  test('Should not be able to create an appointment with date < NOW', async ({
+    assert,
+    client,
+  }) => {
+    const response = await client
+      .post('/appointements/artist-to-client')
+      .bearerToken(await loginAsArtist(client, 2))
+      .json({
+        userId: 2,
+        date: '2023-11-11',
+        description: 'A description',
+      })
+
+    assert.equal(response.status(), 422)
+    assert.equal(
+      response.body().errors[0].message,
+      'The date field must be a date after or equal to today'
+    )
+  })
+})
