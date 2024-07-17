@@ -25,7 +25,7 @@ export default class extends BaseSeeder {
         city: 'Los Angeles',
         zipCode: '90001',
         country: 'USA',
-      }
+      },
     ])
   }
 }

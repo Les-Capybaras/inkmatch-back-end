@@ -27,18 +27,17 @@ test.group('As an user, I should be able to take an appointement with an artist'
 
 test.group('As an artist, I should be able to accept an appointment made by a customer', () => {
   test('Should be able to accept appointment', async ({ assert, client }) => {
-
     const artistToken = await loginAsArtist(client, 1)
-    const response = await client
-      .put('/appointements/1/accept')
-      .bearerToken(artistToken)
+    const response = await client.put('/appointements/1/accept').bearerToken(artistToken)
 
     assert.equal(response.status(), 200)
     assert.equal(response.body().status, AppointementStatus.Accepted)
-
   })
 
-  test('Artist should not be able to accept an appointment of other artist', async ({ assert, client }) => {
+  test('Artist should not be able to accept an appointment of other artist', async ({
+    assert,
+    client,
+  }) => {
     // Creates the appointement
     await client
       .post('/appointements')
@@ -50,18 +49,17 @@ test.group('As an artist, I should be able to accept an appointment made by a cu
       })
 
     const artistToken = await loginAsArtist(client, 2)
-    const response = await client
-      .put('/appointements/2/accept')
-      .bearerToken(artistToken)
+    const response = await client.put('/appointements/2/accept').bearerToken(artistToken)
 
     assert.equal(response.status(), 403)
   })
 
-  test('Artist should not be able to accept an appointement that does not exist', async ({ assert, client }) => {
+  test('Artist should not be able to accept an appointement that does not exist', async ({
+    assert,
+    client,
+  }) => {
     const artistToken = await loginAsArtist(client, 1)
-    const response = await client
-      .put('/appointements/54/accept')
-      .bearerToken(artistToken)
+    const response = await client.put('/appointements/54/accept').bearerToken(artistToken)
 
     assert.equal(response.status(), 404)
     assert.equal(response.body().message, 'Row not found')
@@ -69,7 +67,7 @@ test.group('As an artist, I should be able to accept an appointment made by a cu
 })
 
 test.group('As an artist, I should be able to reject an appointment made by a customer', () => {
-  test('Shoud be able to reject appointment', async ({assert, client}) => {
+  test('Shoud be able to reject appointment', async ({ assert, client }) => {
     await client
       .post('/appointements')
       .bearerToken(await loginAsUser(client, 2))
@@ -80,15 +78,13 @@ test.group('As an artist, I should be able to reject an appointment made by a cu
       })
 
     const artistToken = await loginAsArtist(client, 2)
-    const response = await client
-      .put('/appointements/3/reject')
-      .bearerToken(artistToken)
+    const response = await client.put('/appointements/3/reject').bearerToken(artistToken)
 
     assert.equal(response.status(), 200)
     assert.equal(response.body().status, AppointementStatus.Rejected)
   })
   // Artist should not be able to reject
-  test('Shoud not be able to reject appointment of other artist', async ({assert, client}) => {
+  test('Shoud not be able to reject appointment of other artist', async ({ assert, client }) => {
     await client
       .post('/appointements')
       .bearerToken(await loginAsUser(client, 1))
@@ -99,18 +95,17 @@ test.group('As an artist, I should be able to reject an appointment made by a cu
       })
 
     const artistToken = await loginAsArtist(client, 1)
-    const response = await client
-      .put('/appointements/4/reject')
-      .bearerToken(artistToken)
+    const response = await client.put('/appointements/4/reject').bearerToken(artistToken)
 
     assert.equal(response.status(), 403)
   })
 
-  test('Shoud not be able to reject appointment that does not exist', async ({assert, client}) => {
+  test('Shoud not be able to reject appointment that does not exist', async ({
+    assert,
+    client,
+  }) => {
     const artistToken = await loginAsArtist(client, 1)
-    const response = await client
-      .put('/appointements/45/reject')
-      .bearerToken(artistToken)
+    const response = await client.put('/appointements/45/reject').bearerToken(artistToken)
 
     assert.equal(response.status(), 404)
     assert.equal(response.body().message, 'Row not found')

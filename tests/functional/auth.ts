@@ -10,13 +10,15 @@ export const loginAsUser = async (client: ApiClient, userId: number) => {
 
 export const loginAsArtist = async (client: ApiClient, artistId: number) => {
   const loginResponse = await client.post('/login').json(
-    artistId === 1 ? {
-      email: 'tattoo@inkmatch.com',
-      password: 'password123',
-    } : {
-        email: 'studio@artink.com',
-        password: 'securePass456',
-    }
+    artistId === 1
+      ? {
+          email: 'tattoo@inkmatch.com',
+          password: 'password123',
+        }
+      : {
+          email: 'studio@artink.com',
+          password: 'securePass456',
+        }
   )
   return loginResponse.body().token.token
 }

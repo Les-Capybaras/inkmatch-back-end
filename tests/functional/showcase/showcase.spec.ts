@@ -5,7 +5,7 @@ test.group('As an artist, I should be able to manage my showcase pictures', () =
   test('Should be able to search for artists', async ({ assert, client }) => {
     const response = await client
       .put('/showcases')
-      .bearerToken(await loginAsArtist(client ,1))
+      .bearerToken(await loginAsArtist(client, 1))
       .json({
         files: [1, 2],
       })
