@@ -33,3 +33,11 @@ Description de la structure du folder de l'API :
 
 1. `docker compose -f docker-compose.prod.yml build` pour créer les containers les dépendances.
 2. `docker compose -f docker-compose.prod.yml up -d` pour démarrer les containers
+
+## Commandes de test
+
+- `npm run test`: Exécute tous les tests.
+- `npm run test:watch`: Exécute les tests unitaires en mode "watch", ce qui signifie que les tests seront réexécutés à chaque modification de fichier.
+- `npm run test:unit`: Exécute uniquement les tests unitaires.
+- `npm run test:functional`: Exécute uniquement les tests fonctionnels.
+- `npm run test:coverage`: Exécute les tests avec un rapport de couverture de code généré par l'outil "c8".

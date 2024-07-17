@@ -53,5 +53,8 @@ router
   .put('/appointements/:id/reject', '#controllers/appointement_controller.reject')
   .use(middleware.auth({ guards: ['artist'] }))
 router
-  .post('/appointements/artist-to-client', '#controllers/appointement_controller.storeArtistToClient')
+  .post(
+    '/appointements/artist-to-client',
+    '#controllers/appointement_controller.storeArtistToClient'
+  )
   .use(middleware.auth({ guards: ['artist'] }))

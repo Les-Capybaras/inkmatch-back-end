@@ -1,5 +1,8 @@
 import Appointement from '#models/appointement'
-import { requestAppointementCreation, requestAppointementCreationArtist } from '#validators/appointement'
+import {
+  requestAppointementCreation,
+  requestAppointementCreationArtist,
+} from '#validators/appointement'
 import { HttpContext } from '@adonisjs/core/http'
 import { AppointementStatus } from '../enums/appointements_status.js'
 
@@ -17,6 +20,7 @@ export default class AppointementController {
 
     return ctx.response.created(appointement)
   }
+
   async delete(ctx: HttpContext) {
     const appointement = await Appointement.findOrFail(ctx.params.id)
     await appointement.delete()
@@ -56,10 +60,15 @@ export default class AppointementController {
   async storeArtistToClient(ctx: HttpContext) {
     const payload = await ctx.request.validateUsing(requestAppointementCreationArtist)
     const object = { ...payload, artistId: ctx.auth.user?.id, status: AppointementStatus.Accepted }
-    const appointement = await Appointement.create(object)
 
-    // TODO: Send alert/email/something to customer
+    try {
+      const appointement = await Appointement.create(object)
 
-    return ctx.response.created(appointement)
+      // TODO: Send alert/email/something to customer
+
+      return ctx.response.created(appointement)
+    } catch (error) {
+      return ctx.response.badRequest({ message: 'Could not create appointement' })
+    }
   }
 }
