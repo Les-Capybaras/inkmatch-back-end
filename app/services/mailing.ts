@@ -4,6 +4,7 @@ import Mailer from '#mails/mailer'
 import User from '#models/user'
 import Artist from '#models/artist'
 import MailingToken from '#models/mailing_token'
+import Appointement from '#models/appointement'
 
 export default class MailingService {
   static async createConfirmationEmail(user: User | Artist) {
@@ -39,5 +40,10 @@ export default class MailingService {
     })
 
     await Mailer.sendResetPasswordEmail(user.email, token)
+  }
+
+  static async createConfirmAppointementEmail(user: User, artist: User | Artist, appointement: Appointement) {
+    await Mailer.sendConfirmAppointementEmail(user.email, `${artist.firstName} ${artist.lastName}`, appointement)
+
   }
 }

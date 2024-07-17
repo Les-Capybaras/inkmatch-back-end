@@ -5,6 +5,8 @@ import {
 } from '#validators/appointement'
 import { HttpContext } from '@adonisjs/core/http'
 import { AppointementStatus } from '../enums/appointements_status.js'
+import MailingService from '#services/mailing'
+import User from '#models/user'
 
 export default class AppointementController {
   async show(ctx: HttpContext) {
@@ -37,7 +39,10 @@ export default class AppointementController {
     appointement.status = AppointementStatus.Accepted
     await appointement.save()
 
-    // TODO: Send alert/email/something to customer
+    // Send confirmation email to user
+    const user = await User.findOrFail(appointement.userId);
+    const artist = await User.findOrFail(ctx.auth.user?.id);
+    await MailingService.createConfirmAppointementEmail(user, artist, appointement)
 
     return ctx.response.ok(appointement)
   }
@@ -64,7 +69,10 @@ export default class AppointementController {
     try {
       const appointement = await Appointement.create(object)
 
-      // TODO: Send alert/email/something to customer
+      // Send confirmation email to user
+      const user = await User.findOrFail(appointement.userId);
+      const artist = await User.findOrFail(ctx.auth.user?.id);
+      await MailingService.createConfirmAppointementEmail(user, artist, appointement)
 
       return ctx.response.created(appointement)
     } catch (error) {

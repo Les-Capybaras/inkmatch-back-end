@@ -1,7 +1,9 @@
 import mail from '@adonisjs/mail/services/main'
+import env from '#start/env'
 import VerifyAccount from './verify_account.js'
 import ResetPassword from './reset_password.js'
-import env from '#start/env'
+import ConfirmAppointement from './appointements/confirm_appointement.js'
+import Appointement from '#models/appointement'
 
 export default class Mailer {
   static async sendResetPasswordEmail(email: string, token: string) {
@@ -14,5 +16,10 @@ export default class Mailer {
     const resetLink = `${env.get('FRONTEND_URL')}/confirm-account/${token}`
     const verifyEmail = new VerifyAccount(email, resetLink)
     await mail.send(verifyEmail)
+  }
+
+  static async sendConfirmAppointementEmail(email: string, artistName: string, appointement: Appointement) {
+    const confirmAppointement = new ConfirmAppointement(email, artistName, appointement)
+    await mail.send(confirmAppointement)
   }
 }
