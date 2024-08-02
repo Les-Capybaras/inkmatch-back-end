@@ -2,7 +2,7 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders'
 import File from '#models/file'
 import { FileType } from '../../app/enums/file_type.js'
 
-export default class extends BaseSeeder {
+export default class FilesSeeder extends BaseSeeder {
   async run() {
     await File.createMany([
       {

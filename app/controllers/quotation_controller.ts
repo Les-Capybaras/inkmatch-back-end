@@ -29,7 +29,6 @@ export default class QuotationController {
     }
     const appointement = await Appointement.findOrFail(ctx.params.appointement)
     const pricing = this.quotationService.getQuotationPricing(appointement.amount)
-    // Enhance by adding possiblitity to customize the template
 
     return ctx.view.render('quotation/quotation', {
       client: appointement.user,

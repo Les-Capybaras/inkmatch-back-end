@@ -2,7 +2,7 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders'
 import Artist from '#models/artist'
 import { LegalForm } from '../../app/enums/legal_form.js'
 
-export default class extends BaseSeeder {
+export default class ArtistsSeeder extends BaseSeeder {
   async run() {
     await Artist.createMany([
       {
