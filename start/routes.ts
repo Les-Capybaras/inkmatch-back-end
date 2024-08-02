@@ -43,7 +43,6 @@ router
   .use([middleware.auth({ guards: ['artist'] })])
 
 // Appointement routes
-router.post('/appointements', '#controllers/appointement_controller.store').use(middleware.auth())
 router
   .post('/appointements', '#controllers/appointement_controller.store')
   .use(middleware.auth({ guards: ['user'] }))
