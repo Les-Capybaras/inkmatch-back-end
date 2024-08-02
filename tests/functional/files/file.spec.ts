@@ -7,19 +7,19 @@ test.group('should be able to upload files to server', () => {
       .post('/files')
       .file('file', 'tests/fixture/code.png')
       .field('type', 'Image')
-      .bearerToken(await loginAsUser(client))
+      .bearerToken(await loginAsUser(client, 1))
 
     response.assertStatus(201)
   })
 
   test('Should be able to get a file', async ({ client }) => {
-    const response = await client.get('/files/3').bearerToken(await loginAsUser(client))
+    const response = await client.get('/files/3').bearerToken(await loginAsUser(client, 1))
 
     response.assertStatus(200)
   })
 
   test('Should be able to delete a file', async ({ client }) => {
-    const response = await client.delete('/files/3').bearerToken(await loginAsUser(client))
+    const response = await client.delete('/files/3').bearerToken(await loginAsUser(client, 1))
 
     response.assertStatus(204)
   })

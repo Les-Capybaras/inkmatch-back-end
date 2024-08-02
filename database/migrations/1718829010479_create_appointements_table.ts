@@ -11,7 +11,7 @@ export default class extends BaseSchema {
       table.text('description').notNullable()
       table.integer('amount').nullable()
       table.integer('arrhes_percentage').nullable()
-      table.enum('status', ['Pending', 'Accepted', 'Refused', 'Cancelled', 'Done']).notNullable()
+      table.enum('status', ['Pending', 'Accepted', 'Rejected', 'Cancelled', 'Done']).notNullable()
       table.date('date').notNullable()
 
       table.timestamp('created_at')

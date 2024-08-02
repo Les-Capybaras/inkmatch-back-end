@@ -1,5 +1,8 @@
 import Appointement from '#models/appointement'
-import { requestAppointementCreation } from '#validators/appointement'
+import {
+  requestAppointementCreation,
+  requestAppointementCreationArtist,
+} from '#validators/appointement'
 import { HttpContext } from '@adonisjs/core/http'
 import { AppointementStatus } from '../enums/appointements_status.js'
 
@@ -17,9 +20,55 @@ export default class AppointementController {
 
     return ctx.response.created(appointement)
   }
+
   async delete(ctx: HttpContext) {
     const appointement = await Appointement.findOrFail(ctx.params.id)
     await appointement.delete()
     return ctx.response.noContent()
+  }
+
+  async accept(ctx: HttpContext) {
+    const appointement = await Appointement.findOrFail(ctx.params.id)
+
+    if (appointement.artistId !== ctx.auth.user?.id) {
+      return ctx.response.forbidden()
+    }
+
+    appointement.status = AppointementStatus.Accepted
+    await appointement.save()
+
+    // TODO: Send alert/email/something to customer
+
+    return ctx.response.ok(appointement)
+  }
+
+  async reject(ctx: HttpContext) {
+    const appointement = await Appointement.findOrFail(ctx.params.id)
+
+    if (appointement.artistId !== ctx.auth.user?.id) {
+      return ctx.response.forbidden()
+    }
+
+    appointement.status = AppointementStatus.Rejected
+    await appointement.save()
+
+    // TODO: Send alert/email/something to customer
+
+    return ctx.response.ok(appointement)
+  }
+
+  async storeArtistToClient(ctx: HttpContext) {
+    const payload = await ctx.request.validateUsing(requestAppointementCreationArtist)
+    const object = { ...payload, artistId: ctx.auth.user?.id, status: AppointementStatus.Accepted }
+
+    try {
+      const appointement = await Appointement.create(object)
+
+      // TODO: Send alert/email/something to customer
+
+      return ctx.response.created(appointement)
+    } catch (error) {
+      return ctx.response.badRequest({ message: 'Could not create appointement' })
+    }
   }
 }

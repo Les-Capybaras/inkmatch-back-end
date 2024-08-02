@@ -44,6 +44,21 @@ router
 
 // Appointement routes
 router.post('/appointements', '#controllers/appointement_controller.store').use(middleware.auth())
+router
+  .post('/appointements', '#controllers/appointement_controller.store')
+  .use(middleware.auth({ guards: ['user'] }))
+router
+  .put('/appointements/:id/accept', '#controllers/appointement_controller.accept')
+  .use(middleware.auth({ guards: ['artist'] }))
+router
+  .put('/appointements/:id/reject', '#controllers/appointement_controller.reject')
+  .use(middleware.auth({ guards: ['artist'] }))
+router
+  .post(
+    '/appointements/artist-to-client',
+    '#controllers/appointement_controller.storeArtistToClient'
+  )
+  .use(middleware.auth({ guards: ['artist'] }))
 
 // Quotation routes
 router
