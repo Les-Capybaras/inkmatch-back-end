@@ -69,6 +69,9 @@ export default class Artist extends compose(BaseModel, AuthFinder) {
   @column()
   declare preferedArrhesPercentage: number
 
+  @column()
+  declare quoteNumber: number
+
   @hasOne(() => Showcase)
   declare showcase: HasOne<typeof Showcase>
 

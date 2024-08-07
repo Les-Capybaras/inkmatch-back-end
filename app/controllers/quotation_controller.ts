@@ -23,18 +23,43 @@ export default class QuotationController {
   }
 
   async displayTemplate(ctx: HttpContext) {
-    const user = await Artist.findOrFail(ctx.params.id)
-    if (user === undefined || !(user instanceof Artist)) {
+    const artist = await Artist.findOrFail(ctx.params.id)
+    if (artist === undefined || !(artist instanceof Artist)) {
       return ctx.response.unauthorized()
     }
     const appointement = await Appointement.findOrFail(ctx.params.appointement)
+    const formatedAppointement = {
+      ...appointement,
+      formatedDate: this.getFormatedDate(appointement.date),
+    }
+    const user = await User.findOrFail(appointement.userId)
     const pricing = this.quotationService.getQuotationPricing(appointement.amount)
 
     return ctx.view.render('quotation/quotation', {
-      client: appointement.user,
-      artist: user,
+      client: user,
+      artist: artist,
       pricing: pricing,
-      validityDate: new Date().setMonth(new Date().getMonth() + 1).toLocaleString(),
+      appointement: formatedAppointement,
+      date: this.getFormatedDate(null),
+      validityDate: this.getFormatedDate(null, true),
     })
+  }
+
+  getFormatedDate(date: Date | null | undefined, isValidity = false) {
+    if (date === null || date === undefined) {
+      date = new Date()
+    }
+
+    if (isValidity) {
+      date.setMonth(date.getMonth() + 1)
+    }
+
+    const day = String(date.getDate()).padStart(2, '0')
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const year = date.getFullYear()
+
+    const formattedDate = `${day}/${month}/${year}`
+
+    return formattedDate
   }
 }

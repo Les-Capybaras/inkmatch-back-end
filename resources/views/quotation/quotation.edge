@@ -5,21 +5,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Devis</title>
-  <link rel="stylesheet" href="{{ asset('resources/css/style.css') }}">
-  <link rel="script" href="{{ asset('resources/js/app.js') }}">
 </head>
 
 <body>
   <header class="header">
     <h2 class="title">Devis</h2>
     <p class="quote-number">N° {{ artist.quoteNumber }}</p>
-    <img class="logo" src="{{ asset('resources/img/default-logo.png') }}" alt="Logo">
   </header>
 
   <main>
     <div class="dates">
       <p class="emit-date">Date d'émission :
-        {{ validityDate }}
+        {{ date }}
       </p>
       <p class="validity-date">Date de validité :
         {{ validityDate }}
@@ -33,7 +30,7 @@
         <p class="lastname">Nom : {{ artist.lastName }}</p>
         <p class="adress">Adresse : {{ artist.address }}</p>
         <p class="mail">Mail : {{ artist.email }}</p>
-        <p class="tel">Tel : {{ artist.tel }}</p>
+        <p class="tel">Tel : {{ artist.phoneNumber }}</p>
       </section>
 
       <section class="client">
@@ -41,7 +38,7 @@
         <h1 class="name">{{ client.lastName }}</h1>
         <p class="adress">Adresse : {{ client.address }}</p>
         <p class="mail">Mail : {{ client.email }}</p>
-        <p class="tel">Tel : {{ client.tel }}</p>
+        <p class="tel">Tel : {{ client.phoneNumber }}</p>
       </section>
     </div>
 
@@ -61,7 +58,7 @@
         <tbody>
           <tr>
             <td>Tatouage</td>
-            <td>{{ appointement.date }}</td>
+            <td>{{ appointement.formatedDate }}</td>
             <td>1</td>
             <td>20%</td>
             <td>20,00 €</td>

@@ -19,6 +19,7 @@ export default class extends BaseSchema {
       table.string('company_name').nullable()
       table.string('legal_form').nullable()
       table.integer('prefered_arrhes_percentage').notNullable().defaultTo(10)
+      table.integer('quote_number').notNullable().defaultTo(0)
       table.string('siret').nullable()
 
       table.timestamp('created_at').notNullable()

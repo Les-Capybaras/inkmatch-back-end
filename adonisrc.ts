@@ -38,7 +38,6 @@ export default defineConfig({
     () => import('@adonisjs/auth/auth_provider'),
     () => import('@adonisjs/mail/mail_provider'),
     () => import('@adonisjs/core/providers/edge_provider'),
-    () => import('@adonisjs/vite/vite_provider'),
   ],
 
   /*
@@ -85,8 +84,4 @@ export default defineConfig({
       reloadServer: false,
     },
   ],
-  assetsBundler: false,
-  hooks: {
-    onBuildStarting: [() => import('@adonisjs/vite/build_hook')],
-  },
 })

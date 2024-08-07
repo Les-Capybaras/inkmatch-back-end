@@ -6,6 +6,7 @@ import Appointement from '#models/appointement'
 
 export default class QuotationService {
   async generateQuotation(artist: Artist, appointement: Appointement) {
+    await this.incrementQuoteNumber(artist)
     const uuid = randomUUID()
     const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
     const page = await browser.newPage()
@@ -28,5 +29,10 @@ export default class QuotationService {
       tva,
       ttc,
     }
+  }
+
+  async incrementQuoteNumber(artist: Artist) {
+    artist.quoteNumber += 1
+    await artist.save()
   }
 }
