@@ -1,7 +1,7 @@
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
 import Showcase from '#models/showcase'
 
-export default class extends BaseSeeder {
+export default class ShowcasesSeeder extends BaseSeeder {
   async run() {
     await Showcase.createMany([
       {

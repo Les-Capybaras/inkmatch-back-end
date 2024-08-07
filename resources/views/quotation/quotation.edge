@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devis</title>
+</head>
+
+<body>
+  <header class="header">
+    <h2 class="title">Devis</h2>
+    <p class="quote-number">N° {{ artist.quoteNumber }}</p>
+  </header>
+
+  <main>
+    <div class="dates">
+      <p class="emit-date">Date d'émission :
+        {{ date }}
+      </p>
+      <p class="validity-date">Date de validité :
+        {{ validityDate }}
+      </p>
+    </div>
+
+    <div class="personals">
+      <section class="artist">
+        <h2 class="origin">Émetteur :</h2>
+        <h1 class="name">{{ artist.companyName }}</h1>
+        <p class="lastname">Nom : {{ artist.lastName }}</p>
+        <p class="adress">Adresse : {{ artist.address }}</p>
+        <p class="mail">Mail : {{ artist.email }}</p>
+        <p class="tel">Tel : {{ artist.phoneNumber }}</p>
+      </section>
+
+      <section class="client">
+        <h2 class="origin">Destinataire :</h2>
+        <h1 class="name">{{ client.lastName }}</h1>
+        <p class="adress">Adresse : {{ client.address }}</p>
+        <p class="mail">Mail : {{ client.email }}</p>
+        <p class="tel">Tel : {{ client.phoneNumber }}</p>
+      </section>
+    </div>
+
+
+    <section class="prestations">
+      <h3>Prestations</h3>
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th style="background-color: #f2f2f2;">Désignation</th>
+            <th>Date</th>
+            <th>Quantité</th>
+            <th>TVA</th>
+            <th>Montant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Tatouage</td>
+            <td>{{ appointement.formatedDate }}</td>
+            <td>1</td>
+            <td>20%</td>
+            <td>20,00 €</td>
+          </tr>
+          <tr>
+            <td colspan="5">Total HT</td>
+            <td>{{ pricing.ht }}</td>
+          </tr>
+          <tr>
+            <td colspan="5">TVA (20%)</td>
+            <td>{{ pricing.tva }}</td>
+          </tr>
+          <tr>
+            <td colspan="5">Total TTC</td>
+            <td>{{ pricing.ttc }} €</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="signature">Signature :</p>
+  </footer>
+</body>
+
+</html>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  main {
+    padding: 25px 300px;
+  }
+
+  .dates {
+    padding: 30px 0;
+  }
+
+  .personals {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0;
+  }
+
+  .quote-number {
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+  }
+
+  header {
+    background-color: #f2f2f2;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding: 25px 300px;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .logo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .client {
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+  .prestations {
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  footer {
+    background-color: #f2f2f2;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding: 25px 300px;
+  }
+</style>
