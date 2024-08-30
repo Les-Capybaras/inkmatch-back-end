@@ -4,6 +4,7 @@ import User from '#models/user'
 import QuotationService from '#services/quotation/quotation'
 import { HttpContext } from '@adonisjs/core/http'
 import { inject } from '@adonisjs/core'
+import stripe from '#config/stripe'
 
 @inject()
 export default class QuotationController {
@@ -43,6 +44,28 @@ export default class QuotationController {
       date: this.getFormatedDate(null),
       validityDate: this.getFormatedDate(null, true),
     })
+  }
+
+  async createPayment(ctx: HttpContext) {
+    const appointement = await Appointement.findOrFail(ctx.params.id)
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: appointement.amount,
+      currency: 'EUR',
+    })
+
+    return ctx.response.json({ client_secret: paymentIntent.client_secret })
+  }
+
+  async confirmPayment(ctx: HttpContext) {
+    const { paymentId } = ctx.request.body()
+    const paymentIntent = await stripe.paymentIntents.confirm(paymentId)
+
+    if (paymentIntent.status !== 'succeeded') {
+      return ctx.response.badRequest({ error: 'Payment not confirmed' })
+    }
+
+    return ctx.response.json({ paymentIntent })
   }
 
   getFormatedDate(date: Date | null | undefined, isValidity = false) {

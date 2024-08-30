@@ -60,35 +60,14 @@ router
   .use(middleware.auth({ guards: ['artist'] }))
 
 // Quotation routes
+router.get('/:id/quotation/:appointement', '#controllers/quotation_controller.displayTemplate')
 router
   .get('/quotation/:id', '#controllers/quotation_controller.generate')
   .use(middleware.auth({ guards: ['artist'] }))
-router.get('/:id/quotation/:appointement', '#controllers/quotation_controller.displayTemplate')
-router.on('quote').render('quotation/quotation', {
-  client: {
-    name: 'John Doe',
-    email: 'mock',
-  },
-  artist: {
-    companyName: 'Juste et Bois',
-    quoteNumber: '2024-0001',
-  },
-  pricing: {
-    ht: 100,
-    tva: 20,
-    ttc: 120,
-  },
-  appointement: {
-    date: new Date().toLocaleDateString('fr-FR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    }),
-    amount: 100,
-  },
-  validityDate: new Date().toLocaleDateString('fr-FR', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  }),
-})
+router
+  .get('/quotation/:id/payment', '#controllers/quotation_controller.createPayment')
+  .use(middleware.auth({ guards: ['artist'] }))
+
+router
+  .post('/quotation/:id/payment', '#controllers/quotation_controller.confirmPayment')
+  .use(middleware.auth({ guards: ['artist'] }))
