@@ -4,6 +4,7 @@ import VerifyAccount from './verify_account.js'
 import ResetPassword from './reset_password.js'
 import ConfirmAppointement from './appointements/confirm_appointement.js'
 import Appointement from '#models/appointement'
+import Artist from '#models/artist'
 
 export default class Mailer {
   static async sendResetPasswordEmail(email: string, token: string) {
@@ -18,8 +19,8 @@ export default class Mailer {
     await mail.send(verifyEmail)
   }
 
-  static async sendConfirmAppointementEmail(email: string, artistName: string, appointement: Appointement) {
-    const confirmAppointement = new ConfirmAppointement(email, artistName, appointement)
+  static async sendConfirmAppointementEmail(email: string, artist: Artist, appointement: Appointement) {
+    const confirmAppointement = new ConfirmAppointement(email, artist, appointement)
     await mail.send(confirmAppointement)
   }
 }

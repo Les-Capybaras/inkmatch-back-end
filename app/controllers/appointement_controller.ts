@@ -7,6 +7,7 @@ import { HttpContext } from '@adonisjs/core/http'
 import { AppointementStatus } from '../enums/appointements_status.js'
 import MailingService from '#services/mailing'
 import User from '#models/user'
+import Artist from '#models/artist'
 
 export default class AppointementController {
   async show(ctx: HttpContext) {
@@ -20,6 +21,8 @@ export default class AppointementController {
     const object = { ...payload, userId: ctx.auth.user?.id, status: AppointementStatus.Pending }
     const appointement = await Appointement.create(object)
 
+    // TODO: send email to artist when appointement is created and pending
+
     return ctx.response.created(appointement)
   }
 
@@ -32,6 +35,10 @@ export default class AppointementController {
   async accept(ctx: HttpContext) {
     const appointement = await Appointement.findOrFail(ctx.params.id)
 
+    if (appointement.status === AppointementStatus.Accepted) {
+      return ctx.response.badRequest({ message: 'Appointement already accepted' })
+    }
+
     if (appointement.artistId !== ctx.auth.user?.id) {
       return ctx.response.forbidden()
     }
@@ -41,7 +48,7 @@ export default class AppointementController {
 
     // Send confirmation email to user
     const user = await User.findOrFail(appointement.userId);
-    const artist = await User.findOrFail(ctx.auth.user?.id);
+    const artist = await Artist.findOrFail(ctx.auth.user?.id);
     await MailingService.createConfirmAppointementEmail(user, artist, appointement)
 
     return ctx.response.ok(appointement)

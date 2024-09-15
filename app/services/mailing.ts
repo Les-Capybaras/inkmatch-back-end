@@ -42,8 +42,8 @@ export default class MailingService {
     await Mailer.sendResetPasswordEmail(user.email, token)
   }
 
-  static async createConfirmAppointementEmail(user: User, artist: User | Artist, appointement: Appointement) {
-    await Mailer.sendConfirmAppointementEmail(user.email, `${artist.firstName} ${artist.lastName}`, appointement)
+  static async createConfirmAppointementEmail(user: User, artist: Artist, appointement: Appointement) {
+    await Mailer.sendConfirmAppointementEmail(user.email, artist, appointement)
 
   }
 }
