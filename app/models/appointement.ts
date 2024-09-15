@@ -23,6 +23,12 @@ export default class Appointement extends BaseModel {
   declare userId: number
 
   @column()
+  declare amount: number
+
+  @column()
+  declare arrhesPercentage: number
+
+  @column()
   declare date: Date
 
   @column.dateTime({ autoCreate: true })

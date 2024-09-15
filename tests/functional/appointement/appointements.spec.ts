@@ -53,7 +53,7 @@ test.group('As an artist, I should be able to accept an appointment made by a cu
       })
 
     const artistToken = await loginAsArtist(client, 2)
-    const response = await client.put('/appointements/2/accept').bearerToken(artistToken)
+    const response = await client.put('/appointements/4/accept').bearerToken(artistToken)
 
     assert.equal(response.status(), 403)
   })
@@ -82,7 +82,7 @@ test.group('As an artist, I should be able to reject an appointment made by a cu
       })
 
     const artistToken = await loginAsArtist(client, 2)
-    const response = await client.put('/appointements/3/reject').bearerToken(artistToken)
+    const response = await client.put('/appointements/5/reject').bearerToken(artistToken)
 
     assert.equal(response.status(), 200)
     assert.equal(response.body().status, AppointementStatus.Rejected)
@@ -99,7 +99,7 @@ test.group('As an artist, I should be able to reject an appointment made by a cu
       })
 
     const artistToken = await loginAsArtist(client, 1)
-    const response = await client.put('/appointements/4/reject').bearerToken(artistToken)
+    const response = await client.put('/appointements/6/reject').bearerToken(artistToken)
 
     assert.equal(response.status(), 403)
   })

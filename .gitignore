@@ -3,7 +3,9 @@ node_modules
 build
 tmp
 coverage
-uploads
+
+uploads/quotations/*.pdf
+uploads/*.png
 
 # Secrets
 .env

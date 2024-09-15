@@ -10,6 +10,9 @@ export default class extends BaseSchema {
       table.integer('artist_id').unsigned().references('id').inTable('artists').onDelete('CASCADE')
       table.text('description').notNullable()
       table.enum('status', ['Pending', 'Accepted', 'Rejected', 'Cancelled', 'Done']).notNullable().defaultTo('Pending')
+      table.integer('amount').nullable()
+      table.integer('arrhes_percentage').nullable()
+      table.enum('status', ['Pending', 'Accepted', 'Rejected', 'Cancelled', 'Done']).notNullable()
       table.date('date').notNullable()
 
       table.timestamp('created_at')
