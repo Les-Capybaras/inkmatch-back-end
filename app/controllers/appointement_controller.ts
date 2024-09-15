@@ -22,6 +22,9 @@ export default class AppointementController {
     const appointement = await Appointement.create(object)
 
     // TODO: send email to artist when appointement is created and pending
+    const user = await User.findOrFail(ctx.auth.user?.id)
+    const artist = await Artist.findOrFail(appointement.artistId)
+    await MailingService.createRequestAppointementEmail(artist, user, appointement)
 
     return ctx.response.created(appointement)
   }
