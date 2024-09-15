@@ -42,11 +42,19 @@ export default class MailingService {
     await Mailer.sendResetPasswordEmail(user.email, token)
   }
 
-  static async createConfirmAppointementEmail(user: User, artist: Artist, appointement: Appointement) {
+  static async createConfirmAppointementEmail(
+    user: User,
+    artist: Artist,
+    appointement: Appointement
+  ) {
     await Mailer.sendConfirmAppointementEmail(user.email, artist, appointement)
   }
 
-  static async createRejectAppointementEmail(user: User, artist: Artist, appointement: Appointement) {
+  static async createRejectAppointementEmail(
+    user: User,
+    artist: Artist,
+    appointement: Appointement
+  ) {
     await Mailer.sendRejectAppointementEmail(user.email, artist, appointement)
   }
 }

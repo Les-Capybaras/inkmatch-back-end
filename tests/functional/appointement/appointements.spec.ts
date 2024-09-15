@@ -1,7 +1,6 @@
 import { test } from '@japa/runner'
 import { loginAsArtist, loginAsUser } from '../auth.js'
 import { AppointementStatus } from '../../../app/enums/appointements_status.js'
-import { cp } from 'fs'
 
 test.group('As an user, I should be able to take an appointement with an artist', () => {
   test('Should be able to take an appointement', async ({ assert, client }) => {
@@ -28,8 +27,6 @@ test.group('As an user, I should be able to take an appointement with an artist'
 
 test.group('As an artist, I should be able to accept an appointment made by a customer', () => {
   test('Should be able to accept appointment', async ({ assert, client }) => {
-    
-
     // Accepts the appointement
     const artistToken = await loginAsArtist(client, 1)
     const response = await client.put('/appointements/1/accept').bearerToken(artistToken)

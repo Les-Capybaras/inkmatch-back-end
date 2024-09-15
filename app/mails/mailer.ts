@@ -20,13 +20,31 @@ export default class Mailer {
     await mail.send(verifyEmail)
   }
 
-  static async sendConfirmAppointementEmail(email: string, artist: Artist, appointement: Appointement) {
-    const confirmAppointement = new AppointementCheck(email, artist, appointement, AppointementStatus.Accepted)
+  static async sendConfirmAppointementEmail(
+    email: string,
+    artist: Artist,
+    appointement: Appointement
+  ) {
+    const confirmAppointement = new AppointementCheck(
+      email,
+      artist,
+      appointement,
+      AppointementStatus.Accepted
+    )
     await mail.send(confirmAppointement)
   }
 
-  static async sendRejectAppointementEmail(email: string, artist: Artist, appointement: Appointement) {
-    const rejectAppointement = new AppointementCheck(email, artist, appointement, AppointementStatus.Rejected)
+  static async sendRejectAppointementEmail(
+    email: string,
+    artist: Artist,
+    appointement: Appointement
+  ) {
+    const rejectAppointement = new AppointementCheck(
+      email,
+      artist,
+      appointement,
+      AppointementStatus.Rejected
+    )
     await mail.send(rejectAppointement)
   }
 }

@@ -47,8 +47,8 @@ export default class AppointementController {
     await appointement.save()
 
     // Send confirmation email to user
-    const user = await User.findOrFail(appointement.userId);
-    const artist = await Artist.findOrFail(ctx.auth.user?.id);
+    const user = await User.findOrFail(appointement.userId)
+    const artist = await Artist.findOrFail(ctx.auth.user?.id)
     await MailingService.createConfirmAppointementEmail(user, artist, appointement)
 
     return ctx.response.ok(appointement)
@@ -64,8 +64,8 @@ export default class AppointementController {
     appointement.status = AppointementStatus.Rejected
     await appointement.save()
 
-    const user = await User.findOrFail(appointement.userId);
-    const artist = await Artist.findOrFail(ctx.auth.user?.id);
+    const user = await User.findOrFail(appointement.userId)
+    const artist = await Artist.findOrFail(ctx.auth.user?.id)
     await MailingService.createRejectAppointementEmail(user, artist, appointement)
 
     return ctx.response.ok(appointement)
@@ -79,8 +79,8 @@ export default class AppointementController {
       const appointement = await Appointement.create(object)
 
       // Send confirmation email to user
-      const user = await User.findOrFail(appointement.userId);
-      const artist = await User.findOrFail(ctx.auth.user?.id);
+      const user = await User.findOrFail(appointement.userId)
+      const artist = await Artist.findOrFail(ctx.auth.user?.id)
       await MailingService.createConfirmAppointementEmail(user, artist, appointement)
 
       return ctx.response.created(appointement)
