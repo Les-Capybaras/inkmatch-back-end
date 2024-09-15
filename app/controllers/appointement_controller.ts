@@ -64,7 +64,9 @@ export default class AppointementController {
     appointement.status = AppointementStatus.Rejected
     await appointement.save()
 
-    // TODO: Send alert/email/something to customer
+    const user = await User.findOrFail(appointement.userId);
+    const artist = await Artist.findOrFail(ctx.auth.user?.id);
+    await MailingService.createRejectAppointementEmail(user, artist, appointement)
 
     return ctx.response.ok(appointement)
   }

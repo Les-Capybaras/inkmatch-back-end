@@ -44,6 +44,9 @@ export default class MailingService {
 
   static async createConfirmAppointementEmail(user: User, artist: Artist, appointement: Appointement) {
     await Mailer.sendConfirmAppointementEmail(user.email, artist, appointement)
+  }
 
+  static async createRejectAppointementEmail(user: User, artist: Artist, appointement: Appointement) {
+    await Mailer.sendRejectAppointementEmail(user.email, artist, appointement)
   }
 }
