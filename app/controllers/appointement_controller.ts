@@ -88,6 +88,8 @@ export default class AppointementController {
 
       return ctx.response.created(appointement)
     } catch (error) {
+      console.log(error)
+
       return ctx.response.badRequest({ message: 'Could not create appointement' })
     }
   }
