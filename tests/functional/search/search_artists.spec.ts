@@ -21,7 +21,7 @@ test.group('As a client, I should be able to search for artists', () => {
 
   test('Should be able to search for artists by companyName', async ({ assert, client }) => {
     const response = await client
-      .get('/artists?companyName=InkMatch')
+      .get('/artists?param=InkMatch')
       .bearerToken(await loginAsUser(client, 1))
 
     response.assertStatus(200)
