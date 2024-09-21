@@ -123,7 +123,7 @@ test.group('As an artist, I should be able to take an appointement with a custom
         date: '2024-11-11',
         description: 'A description',
       })
-    //console.log(response.body())
+    console.log(response.body())
     assert.equal(201, 201)
     //assert.equal(response.body().description, 'A description')
     //TODO : Fix this test
