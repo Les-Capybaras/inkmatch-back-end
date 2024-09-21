@@ -79,15 +79,23 @@ export default class AppointementController {
     const object = { ...payload, artistId: ctx.auth.user?.id, status: AppointementStatus.Accepted }
 
     try {
+      // Send confirmation email to user
+      const user = await User.findOrFail(payload.userId)
+      const artist = await Artist.findOrFail(ctx.auth.user?.id)
+
+      if (!user || !artist) {
+        console.log('User or artist not found', user, artist)
+
+        return ctx.response.badRequest({ message: 'User or artist not found' })
+      }
       const appointement = await Appointement.create(object)
 
-      // Send confirmation email to user
-      const user = await User.findOrFail(appointement.userId)
-      const artist = await Artist.findOrFail(ctx.auth.user?.id)
       await MailingService.createConfirmAppointementEmail(user, artist, appointement)
 
       return ctx.response.created(appointement)
     } catch (error) {
+      console.log(error)
+
       return ctx.response.badRequest({ message: 'Could not create appointement' })
     }
   }
