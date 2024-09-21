@@ -119,7 +119,7 @@ test.group('As an artist, I should be able to take an appointement with a custom
       .post('/appointements/artist-to-client')
       .bearerToken(await loginAsArtist(client, 2))
       .json({
-        userId: 1,
+        userId: 3,
         date: '2024-11-11',
         description: 'A description',
       })
