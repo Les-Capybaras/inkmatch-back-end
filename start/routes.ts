@@ -31,8 +31,8 @@ router.post('/files', '#controllers/file_controller.store').use(middleware.auth(
 router.delete('/files/:id', '#controllers/file_controller.delete').use(middleware.auth())
 
 // Search routes
-router.get('/artists', '#controllers/artists_controller.searchArtists').use(middleware.auth())
-router.get('/artists/:id', '#controllers/artists_controller.getArtistDetail').use(middleware.auth())
+router.get('/artists', '#controllers/artists_controller.searchArtists')
+router.get('/artists/:id', '#controllers/artists_controller.getArtistDetail')
 
 // Showcase routes
 router
