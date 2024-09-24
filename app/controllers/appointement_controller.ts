@@ -94,7 +94,21 @@ export default class AppointementController {
 
   async storeArtistToClient(ctx: HttpContext) {
     const payload = await ctx.request.validateUsing(requestAppointementCreationArtist)
-    const object = { ...payload, artistId: ctx.auth.user?.id, status: AppointementStatus.Accepted }
+
+    // Combiner la date et l'heure pour obtenir le startTime
+    const date = DateTime.fromJSDate(payload.date)
+    const [hour, minute] = payload.startTime.split(':').map(Number)
+    const startTime = date.set({ hour, minute })
+
+    const appointementData = {
+      userId: payload.userId,
+      artistId: ctx.auth.user!.id,
+      description: payload.description,
+      duration: payload.duration,
+      startTime: startTime,
+      date: payload.date, // Si nécessaire pour d'autres contrôleurs
+      status: AppointementStatus.Accepted,
+    }
 
     try {
       // Send confirmation email to user
@@ -106,7 +120,7 @@ export default class AppointementController {
 
         return ctx.response.badRequest({ message: 'User or artist not found' })
       }
-      const appointement = await Appointement.create(object)
+      const appointement = await Appointement.create(appointementData)
 
       await MailingService.createConfirmAppointementEmail(user, artist, appointement)
 

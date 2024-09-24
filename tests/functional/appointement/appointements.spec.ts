@@ -11,6 +11,8 @@ test.group('As an user, I should be able to take an appointement with an artist'
         artistId: 1,
         date: '2024-11-11',
         description: 'A description',
+        startTime: '09:00',
+        duration: '01:00',
       })
 
     response.assertStatus(201)
@@ -47,6 +49,8 @@ test.group('As an artist, I should be able to accept an appointment made by a cu
         artistId: 1,
         date: '2024-11-11',
         description: 'A description',
+        startTime: '10:00',
+        duration: '01:00',
       })
 
     const artistToken = await loginAsArtist(client, 2)
@@ -76,6 +80,8 @@ test.group('As an artist, I should be able to reject an appointment made by a cu
         artistId: 2,
         date: '2024-12-12',
         description: 'A description',
+        startTime: '09:00',
+        duration: '01:00',
       })
 
     const artistToken = await loginAsArtist(client, 2)
@@ -93,6 +99,8 @@ test.group('As an artist, I should be able to reject an appointment made by a cu
         artistId: 2,
         date: '2024-12-12',
         description: 'A different one',
+        startTime: '10:00',
+        duration: '01:00',
       })
 
     const artistToken = await loginAsArtist(client, 1)
@@ -122,8 +130,9 @@ test.group('As an artist, I should be able to take an appointement with a custom
         userId: 3,
         date: '2024-11-11',
         description: 'A description',
+        startTime: '14:00',
+        duration: '01:00',
       })
-    console.log(response.body())
     assert.equal(201, 201)
     //assert.equal(response.body().description, 'A description')
     //TODO : Fix this test
@@ -139,6 +148,8 @@ test.group('As an artist, I should be able to take an appointement with a custom
         userId: 45,
         date: '2024-11-11',
         description: 'A description',
+        startTime: '15:00',
+        duration: '01:00',
       })
 
     assert.equal(response.status(), 400)
@@ -156,6 +167,8 @@ test.group('As an artist, I should be able to take an appointement with a custom
         userId: 2,
         date: '2023-11-11',
         description: 'A description',
+        startTime: '15:00',
+        duration: '01:00',
       })
 
     assert.equal(response.status(), 422)
