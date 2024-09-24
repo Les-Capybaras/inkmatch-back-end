@@ -6,6 +6,8 @@ export const requestAppointementCreation = vine.compile(
     description: vine.string(),
     artistId: vine.number(),
     fileId: vine.number().optional(),
+    duration: vine.string().regex(/^\d{2}:\d{2}$/),
+    startTime: vine.string().regex(/^\d{2}:\d{2}$/),
   })
 )
 

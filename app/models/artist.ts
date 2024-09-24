@@ -48,6 +48,11 @@ export default class Artist extends compose(BaseModel, AuthFinder) {
   @column({ consume: (value) => !!value })
   declare hasConfirmedEmail: boolean
 
+  @column({
+    prepare: (value: object) => JSON.stringify(value),
+  })
+  declare availability: object
+
   @hasMany(() => Appointement)
   declare appointements: HasMany<typeof Appointement>
 

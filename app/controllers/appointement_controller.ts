@@ -8,6 +8,7 @@ import { AppointementStatus } from '../enums/appointements_status.js'
 import MailingService from '#services/mailing'
 import User from '#models/user'
 import Artist from '#models/artist'
+import { DateTime } from 'luxon'
 
 export default class AppointementController {
   async show(ctx: HttpContext) {
@@ -18,8 +19,25 @@ export default class AppointementController {
 
   async store(ctx: HttpContext) {
     const payload = await ctx.request.validateUsing(requestAppointementCreation)
-    const object = { ...payload, userId: ctx.auth.user?.id, status: AppointementStatus.Pending }
-    const appointement = await Appointement.create(object)
+
+    // Combiner la date et l'heure pour obtenir le startTime
+    const date = DateTime.fromJSDate(payload.date)
+    const [hour, minute] = payload.startTime.split(':').map(Number)
+    const startTime = date.set({ hour, minute })
+
+    // Préparer les données pour créer l'appointement
+    const appointementData = {
+      userId: ctx.auth.user!.id,
+      artistId: payload.artistId,
+      description: payload.description,
+      duration: payload.duration,
+      startTime: startTime,
+      date: payload.date, // Si nécessaire pour d'autres contrôleurs
+      status: AppointementStatus.Pending,
+    }
+
+    // Créer l'appointement
+    const appointement = await Appointement.create(appointementData)
 
     // TODO: send email to artist when appointement is created and pending
     const user = await User.findOrFail(ctx.auth.user?.id)

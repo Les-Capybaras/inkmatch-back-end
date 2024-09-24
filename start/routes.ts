@@ -33,6 +33,7 @@ router.delete('/files/:id', '#controllers/file_controller.delete').use(middlewar
 // Search routes
 router.get('/artists', '#controllers/artists_controller.searchArtists')
 router.get('/artists/:id', '#controllers/artists_controller.getArtistDetail')
+router.get('/artists/:id/availability', '#controllers/artists_controller.getAvailability')
 
 // Showcase routes
 router
