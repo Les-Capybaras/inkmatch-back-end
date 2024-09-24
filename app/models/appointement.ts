@@ -31,6 +31,12 @@ export default class Appointement extends BaseModel {
   @column()
   declare date: Date
 
+  @column()
+  declare duration: string
+
+  @column.dateTime()
+  declare startTime: DateTime
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

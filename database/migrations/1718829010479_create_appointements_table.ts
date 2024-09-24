@@ -16,6 +16,8 @@ export default class extends BaseSchema {
       table.integer('amount').nullable()
       table.integer('arrhes_percentage').nullable()
       table.date('date').notNullable()
+      table.time('duration').notNullable().defaultTo('01:00')
+      table.timestamp('start_time').notNullable()
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

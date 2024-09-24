@@ -21,6 +21,32 @@ export default class extends BaseSchema {
       table.integer('prefered_arrhes_percentage').notNullable().defaultTo(10)
       table.integer('quote_number').notNullable().defaultTo(0)
       table.string('siret').nullable()
+      table.json('availability').defaultTo(
+        JSON.stringify({
+          Monday: [
+            { start: '09:00', end: '12:00' },
+            { start: '14:00', end: '18:00' },
+          ],
+          Tuesday: [
+            { start: '09:00', end: '12:00' },
+            { start: '14:00', end: '18:00' },
+          ],
+          Wednesday: [
+            { start: '09:00', end: '12:00' },
+            { start: '14:00', end: '18:00' },
+          ],
+          Thursday: [
+            { start: '09:00', end: '12:00' },
+            { start: '14:00', end: '18:00' },
+          ],
+          Friday: [
+            { start: '09:00', end: '12:00' },
+            { start: '14:00', end: '18:00' },
+          ],
+          Saturday: [],
+          Sunday: [],
+        })
+      )
 
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()
