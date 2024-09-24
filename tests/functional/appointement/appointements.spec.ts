@@ -123,6 +123,7 @@ test.group('As an artist, I should be able to reject an appointment made by a cu
 
 test.group('As an artist, I should be able to take an appointement with a customer', () => {
   test('Should be able to create an appointment', async ({ assert, client }) => {
+    // @ts-ignore
     const response = await client
       .post('/appointements/artist-to-client')
       .bearerToken(await loginAsArtist(client, 2))
