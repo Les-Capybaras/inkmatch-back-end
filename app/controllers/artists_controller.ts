@@ -158,4 +158,10 @@ export default class ArtistsController {
       return hours * 60 + minutes
     }
   }
+
+  async getAppointements(ctx: HttpContext) {
+    const artistId = ctx.params.id
+    const appointements = await Appointement.query().where('artist_id', artistId)
+    return ctx.response.ok(appointements)
+  }
 }
