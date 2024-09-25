@@ -3,19 +3,23 @@ import { HttpContext } from '@adonisjs/core/http'
 
 export default class ArtistsController {
   async searchArtists(ctx: HttpContext) {
-    const { param, order } = ctx.request.qs()
+    let { param, order } = ctx.request.qs()
+
+    if (param) {
+      param = param.toLowerCase()
+    }
 
     let query = Artist.query()
 
     if (param) {
       query = query.where((builder) => {
         builder
-          .where('companyName', 'like', `%${param}%`)
-          .orWhere('city', 'like', `%${param}%`)
-          .orWhere('zipCode', 'like', `%${param}%`)
-          .orWhere('address', 'like', `%${param}%`)
-          .orWhere('firstName', 'like', `%${param}%`)
-          .orWhere('lastName', 'like', `%${param}%`)
+          .where('companyName', 'ilike', `%${param}%`)
+          .orWhere('city', 'ilike', `%${param}%`)
+          .orWhere('zipCode', 'ilike', `%${param}%`)
+          .orWhere('address', 'ilike', `%${param}%`)
+          .orWhere('firstName', 'ilike', `%${param}%`)
+          .orWhere('lastName', 'ilike', `%${param}%`)
       })
     }
 
