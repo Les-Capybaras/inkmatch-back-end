@@ -26,9 +26,9 @@ router
   .use(middleware.auth({ guards: ['user', 'artist'] }))
 
 // File routes
-router.get('/files/:id', '#controllers/file_controller.show')
-router.post('/files', '#controllers/file_controller.store')
-router.delete('/files/:id', '#controllers/file_controller.delete').use(middleware.auth())
+router.get('/files/:id', '#controllers/file_controller.show').use(middleware.auth({ guards: ['user', 'artist'] }))
+router.post('/files', '#controllers/file_controller.store').use(middleware.auth({ guards: ['user', 'artist'] }))
+router.delete('/files/:id', '#controllers/file_controller.delete').use(middleware.auth({ guards: ['user', 'artist'] }))
 
 // Search routes
 router.get('/artists', '#controllers/artists_controller.searchArtists')
