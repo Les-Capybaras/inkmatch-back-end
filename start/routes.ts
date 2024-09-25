@@ -26,8 +26,8 @@ router
   .use(middleware.auth({ guards: ['user', 'artist'] }))
 
 // File routes
-router.get('/files/:id', '#controllers/file_controller.show').use(middleware.auth())
-router.post('/files', '#controllers/file_controller.store').use(middleware.auth())
+router.get('/files/:id', '#controllers/file_controller.show')
+router.post('/files', '#controllers/file_controller.store')
 router.delete('/files/:id', '#controllers/file_controller.delete').use(middleware.auth())
 
 // Search routes
